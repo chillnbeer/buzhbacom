@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <title>бужба</title>
+  <meta name="description" content="бужба: музыка, клипы, соцсети, донаты." />
+
+  <!-- Open Graph / Twitter (красивый предпросмотр в соцсетях) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="@buzhba — ссылки">
+  <meta property="og:description" content="новый альбом «Когда ты ну очень крутой», релизы и соцсети">
+  <meta property="og:image" content="https://buzhba.com/og-cover.jpg">
+  <meta property="og:url" content="https://buzhba.com/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Шрифты -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <!-- Иконки сайта -->
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="бужба" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <style>
+    :root{
+      --profile-bg:#ffecd4;
+      --button-border:#ccbeb4;
+      --text:#000;
+      --radius:32px;
+      --gap:14px;
+      --container-w:580px;
+      --shadow:0 24px 32px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--profile-bg); color:var(--text);
+      font:400 16px/1.5 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .wrap{width:min(var(--container-w),100%); margin:40px auto 24px; padding:0 var(--gap)}
+    .panel{background:var(--profile-bg); border-radius:24px; box-shadow:var(--shadow); padding:72px calc(var(--gap)*2) 24px}
+
+    .top{display:grid; justify-items:center; gap:10px; margin-bottom:6px}
+    .avatar{width:96px; height:96px; border-radius:50%; object-fit:cover; background:#000; box-shadow:inset 0 0 0 2px rgba(0,0,0,.05)}
+    .name{font-family:"Space Mono", monospace; font-size:22px}
+    .desc{ display:none; }
+
+    .socials{display:flex; gap:12px; justify-content:center; margin-top:10px}
+    .socials a{display:grid; place-items:center; width:40px; height:40px; border-radius:100%; background:#fff; border:0 solid var(--button-border); box-shadow:0 2px 4px rgba(0,0,0,.06); transition:transform .18s ease, border-color .18s ease, background .18s ease}
+    .socials a:hover{transform:translateY(-1px); border-color:#bfb1a5; background:#faf8f6}
+    .socials img{width:40px; height:40px; object-fit:contain; display:block}
+
+    .links{display:grid; gap:var(--gap); margin-top:var(--gap)}
+    .btn{
+      display:flex; align-items:center; justify-content:center;
+      min-height:64px; padding:0 calc(var(--gap)*3);
+      border:1px solid var(--button-border); border-radius:var(--radius);
+      background:transparent; color:var(--text); text-decoration:none;
+      transition:transform .2s, border-color .2s, border-width .15s;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:#bfb1a5; border-width:2px}
+    .btn:focus-visible{outline:3px solid #000; outline-offset:3px}
+    .btn .txt{font-weight:500; text-align:center}
+
+    .footer{padding:18px 0 8px; text-align:center; font-size:12px; opacity:.7}
+
+    @media (max-width:768px){
+      .panel{border-radius:16px; padding-top:60px}
+      .wrap{margin-top:28px}
+    }
+    
+    /* YouTube-embed */
+.yt{
+  position:relative; width:100%; padding-top:56.25%; /* 16:9 */
+  border:1px solid var(--button-border); border-radius:var(--radius);
+  overflow:hidden; background:#000;
+}
+.yt iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+.yt + .btn { display: none; }
+
+  </style>
+  
+  
+</head>
+<body>
+    
+    
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103973956', 'ym');
+
+    ym(103973956, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/103973956" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+  <main class="wrap">
+    <section class="panel">
+      <header class="top">
+        <img class="avatar" src="/logo.png?io=true&size=avatar-v3_0" alt="buzhba" loading="lazy">
+        <div class="name"><img src="/logo2.png" width="250" alt="бужба" loading="lazy"></div>
+        <div class="desc"></div>
+
+        <nav class="socials" aria-label="Социальные сети">
+          <a href="https://instagram.com/buzhba100" target="_blank" rel="noopener" title="Instagram">
+            <img src="/s/instagram.png" alt="Instagram">
+          </a>
+          <a href="https://vk.com/buzhba" target="_blank" rel="noopener" title="ВКонтакте">
+            <img src="/s/vk.png" alt="ВКонтакте">
+          </a>
+          <a href="https://youtube.com/@buzhba" target="_blank" rel="noopener" title="YouTube">
+            <img src="/s/youtube.png" alt="YouTube">
+          </a>
+          <a href="https://t.me/buzhba" target="_blank" rel="noopener" title="Telegram">
+            <img src="/s/telegram.png" alt="Telegram">
+          </a>
+          <a href="https://tiktok.com/@buzhba" target="_blank" rel="noopener" title="TikTok">
+            <img src="/s/tiktok.png" alt="TikTok">
+          </a>
+        </nav>
+      </header>
+
+      <div class="links" id="links"></div>
+    </section>
+    <footer class="footer">© бужба</footer>
+  </main>
+
+<script>
+(async function () {
+  // читаем тот же корневой JSON через прокси
+  async function getJson(url){
+    const res = await fetch(url + (url.includes('?')?'&':'?') + 'ts=' + Date.now(), {
+      cache: "no-store", headers: { "Accept": "application/json" }
+    });
+    if (!res.ok) throw new Error(url + " → HTTP " + res.status);
+    return res.json();
+  }
+
+  let data;
+  try { data = await getJson("/links.json.php"); }
+  catch(e){ console.error("links.json.php error:", e); data = { title:"", items:[] }; }
+
+  renderLinks({
+    title: typeof data.title === "string" ? data.title : "",
+    items: Array.isArray(data.items) ? data.items : []
+  });
+
+  /* ---------- helpers ---------- */
+  function isYouTube(url){
+    return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i.test(url || "");
+  }
+  function ytId(url){
+    try {
+      const u = new URL(url);
+      if (u.hostname.includes("youtu.be")) return (u.pathname.split("/")[1] || "").slice(0,11);
+      if (u.hostname.includes("youtube.com")) {
+        if (u.pathname === "/watch") return (u.searchParams.get("v") || "").slice(0,11);
+        const m = u.pathname.match(/^\/shorts\/([A-Za-z0-9_-]{11})/);
+        if (m) return m[1];
+      }
+    } catch(_) {}
+    const m = (url||"").match(/(?:v=|\/shorts\/|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : null;
+  }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+  }
+
+  /* ---------- render ---------- */
+  function renderLinks(data){
+    const list = document.getElementById("links");
+    list.innerHTML = "";
+    const desc = document.querySelector(".desc");
+    if (desc) desc.textContent = data.title || "";
+
+    const items = (data.items || []).filter(i => i && i.url);
+    const pinned  = items.filter(i => i.pin);
+    const regular = items.filter(i => !i.pin);
+
+    const add = (i, p=false) => {
+      const url = i.url;
+      if (isYouTube(url)) {
+        const id = ytId(url);
+        if (id) {
+          const wrap = document.createElement("div");
+          wrap.className = "yt";
+          wrap.innerHTML = `<iframe
+              src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
+              title="${escapeHtml(i.label || 'YouTube video')}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>`;
+          list.appendChild(wrap);
+          // подпись/кнопка под видео (если есть красивый текст)
+          if (i.label && i.label.trim() && i.label.trim() !== url.trim()) {
+            const a = document.createElement("a");
+            a.className = "btn";
+            a.href = url; a.target = "_blank"; a.rel = "noopener";
+            a.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label)}</span>`;
+            list.appendChild(a);
+          }
+          return;
+        }
+      }
+      // обычная ссылка-кнопка
+      const a = document.createElement("a");
+      a.className = "btn";
+      a.href = url; a.target = "_blank"; a.rel = "noopener";
+      a.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label || url)}</span>`;
+      list.appendChild(a);
+    };
+
+    pinned.forEach(i => add(i, true));
+    regular.forEach(i => add(i, false));
+  }
+})();
+</script>
+
+
+
+
+</body>
+</html>

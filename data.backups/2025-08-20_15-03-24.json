@@ -1,0 +1,7 @@
+{
+  "title": "@buzhba — ссылки",
+  "items": [
+    { "id": 1, "label": "Слушать альбом «Весёлые риффы»", "url": "https://band.link/ppDGl", "pin": true },
+    { "id": 2, "label": "Яндекс Музыка", "url": "https://music.yandex.ru/artist/XXXX", "pin": false }
+  ]
+}

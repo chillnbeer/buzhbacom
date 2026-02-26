@@ -1,0 +1,41 @@
+{
+    "title": "@buzhba — ссылки",
+    "items": [
+        {
+            "id": 6,
+            "label": "ссылка2",
+            "url": "https:\/\/buzhba.com",
+            "pin": false
+        },
+        {
+            "id": 5,
+            "label": "ссылка",
+            "url": "https:\/\/buzhba.com",
+            "pin": false
+        },
+        {
+            "id": 1,
+            "label": "Слушать альбом «Весёлые риффы»",
+            "url": "https:\/\/band.link\/ppDGl",
+            "pin": true
+        },
+        {
+            "id": 2,
+            "label": "Яндекс Музыка",
+            "url": "https:\/\/music.yandex.ru\/artist\/XXXX",
+            "pin": false
+        },
+        {
+            "id": 3,
+            "label": "Apple Music",
+            "url": "https:\/\/music.apple.com\/artist\/XXXX",
+            "pin": false
+        },
+        {
+            "id": 4,
+            "label": "ccskrf",
+            "url": "https:\/\/buzhba.com",
+            "pin": false
+        }
+    ]
+}

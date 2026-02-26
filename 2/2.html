@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>бужба</title>
+  <link rel="stylesheet" href="https://buzhba.com/style.css">
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(99752346, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+    });
+  </script>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Скрипт GIF-фона -->
+  <script>
+    (function() {
+        const apiKey = "A3SbblKUbWFALlS2wKAbU82aVMFgxQEZ"; // API-ключ Giphy
+
+        // Добавляем стили в <head>
+        const styles = document.createElement("style");
+        styles.innerHTML = `
+            body {
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                transition: background-image 1s ease-in-out;
+            }
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5); /* Затемнение */
+                z-index: -1;
+            }
+            header {
+                text-align: center;
+                padding: 20px; /* Отступ сверху и снизу */
+            }
+            header a {
+                display: block;
+                margin: 10px auto; /* Отступ между ссылками */
+                text-decoration: none;
+            }
+        `;
+
+        document.head.appendChild(styles);
+
+        async function setRandomGifBackground() {
+            const url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.data && data.data.images && data.data.images.original) {
+                    const gifUrl = data.data.images.original.url;
+                    document.body.style.backgroundImage = `url(${gifUrl})`;
+                } else {
+                    console.warn("Giphy не отдал гифку, фон не изменён.");
+                }
+            } catch (error) {
+                console.error("Ошибка загрузки GIF:", error);
+            }
+        }
+
+        // Устанавливаем первый фон и обновляем каждые 15 секунд
+        setRandomGifBackground();
+        setInterval(setRandomGifBackground, 15000);
+    })();
+  </script>
+  <!-- /Скрипт GIF-фона -->
+
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <p>бужба</p>
+        <a href="/video">видео</a>
+        <a target="blank" href="https://t.me/buzhba" style="color: #85C6A1;">telegram</a>
+        <a target="blank" href="https://www.youtube.com/@buzhba" style="color: #D5625D;">youtube</a>
+        <a target="blank" href="https://instagram.com/buzhba" style="color: #928EA8;">inst</a>
+        <a target="blank" href="https://vk.com/buzhba" style="color: #659EB4;">vk</a>
+    </div>
+</header>
+
+<div class="content">
+    <!-- Альбомы (оставил всё как было) -->
+    <div class="album">
+      <img src="https://f4.bcbits.com/img/a3875480752_10.jpg" alt="Album Cover">
+      <div class="album-details">
+        <h2>лучший день (single)</h2>
+        <p>Дата выпуска: 2025</p>
+        <p><a href="https://buzhba.com/contact/">Скачать .zip</a> | <a target="blank" href="https://band.link/bestden">Слушать везде</a></p>
+      </div>
+    </div>
+
+    <!-- Остальные альбомы оставил как были -->
+</div>
+
+<noscript><div><img src="https://mc.yandex.ru/watch/99752346" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+</body>
+</html>
