@@ -107,6 +107,49 @@
 
 .yt + .btn { display: none; }
 
+
+  /* PRESS */
+.press-toggle{
+  margin-top: 12px;
+}
+
+.press-grid{
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: var(--gap);
+}
+
+@media (max-width:520px){
+  .press-grid{ grid-template-columns: 1fr; }
+}
+
+.press-grid figure{
+  margin: 0;
+}
+
+.press-grid a{
+  display: block;
+}
+
+.press-grid img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--button-border);
+}
+
+.press-grid figcaption{
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: .65;
+  text-align: center;
+}
+
+.is-hidden{
+  display: none;
+}
   </style>
   
   
@@ -156,6 +199,30 @@
       </header>
 
       <div class="links" id="links"></div>
+      <!-- PRESS: кнопка + скрытая сетка фото -->
+<button class="btn press-toggle" type="button" aria-expanded="false" aria-controls="pressGrid">
+  📷 Фото
+</button>
+
+<div class="press-grid is-hidden" id="pressGrid">
+  <figure>
+    <a href="images/press/4.jpg" target="_blank" rel="noopener">
+      <img src="images/press/4.jpg"
+           alt="Бужба — портрет"
+           loading="lazy">
+    </a>
+    <figcaption>Портрет</figcaption>
+  </figure>
+
+  <figure>
+    <a href="images/press/buzhba-press-live-2026.jpg" target="_blank" rel="noopener">
+      <img src="images/press/buzhba-press-live-2026.jpg"
+           alt="Бужба — концерт"
+           loading="lazy">
+    </a>
+    <figcaption>Концерт</figcaption>
+  </figure>
+</div>
     </section>
     <footer class="footer">© бужба</footer>
   </main>
@@ -248,6 +315,19 @@
     regular.forEach(i => add(i, false));
   }
 })();
+// PRESS: toggle grid
+const pressBtn = document.querySelector(".press-toggle");
+const pressGrid = document.getElementById("pressGrid");
+
+pressBtn?.addEventListener("click", () => {
+  const isOpen = pressBtn.getAttribute("aria-expanded") === "true";
+  pressBtn.setAttribute("aria-expanded", String(!isOpen));
+  pressGrid?.classList.toggle("is-hidden", isOpen);
+
+  // (опционально) меняем текст кнопки
+  pressBtn.textContent = isOpen ? "📷 Фото" : "✕ Закрыть фото";
+});
+
 </script>
 
 
