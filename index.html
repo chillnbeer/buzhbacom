@@ -1,33 +1,53 @@
 <!doctype html>
 <html lang="ru">
- 
 <head>
-  <title>Бужба</title>
-<meta name="description" content="Бужба — инди-проект из Екатеринбурга. Альбом «Когда ты ну очень крутой», новые релизы, концерты и ссылки на стриминги.">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-  <meta name="description" content="бужба: музыка, клипы, соцсети, донаты." />
 
-  <!-- Open Graph / Twitter (красивый предпросмотр в соцсетях) -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="бужба">
-  <meta property="og:description" content="официальный сайт">
-  <meta property="og:image" content="https://buzhba.com/og-cover.jpg">
-  <meta property="og:url" content="https://buzhba.com/">
-  <meta name="twitter:card" content="summary_large_image">
+  <title>Бужба — музыкальный проект Жоржа Корнилова</title>
+  <meta name="description" content="Бужба — инди-проект из Екатеринбурга. Альбом «Когда ты ну очень крутой», релизы, клипы и ссылки на стриминги." />
+  <link rel="canonical" href="https://buzhba.com/" />
 
-  <!-- Шрифты -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Бужба" />
+  <meta property="og:description" content="Официальный сайт: релизы, клипы, ссылки" />
+  <meta property="og:image" content="https://buzhba.com/logo2.png" />
+  <meta property="og:url" content="https://buzhba.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Иконки сайта -->
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="бужба" />
   <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "Бужба",
+    "alternateName": "buzhba",
+    "url": "https://buzhba.com",
+    "genre": "Russian Indie",
+    "founder": { "@type": "Person", "name": "Жорж Корнилов" },
+    "sameAs": [
+      "https://vk.com/buzhba",
+      "https://youtube.com/@buzhba",
+      "https://t.me/buzhba",
+      "https://instagram.com/buzhba100",
+      "https://tiktok.com/@buzhba"
+    ]
+  }
+  </script>
 
   <style>
     :root{
@@ -65,6 +85,7 @@
       border:1px solid var(--button-border); border-radius:var(--radius);
       background:transparent; color:var(--text); text-decoration:none;
       transition:transform .2s, border-color .2s, border-width .15s;
+      font: inherit;
     }
     .btn:hover{transform:translateY(-1px); border-color:#bfb1a5; border-width:2px}
     .btn:focus-visible{outline:3px solid #000; outline-offset:3px}
@@ -76,90 +97,60 @@
       .panel{border-radius:16px; padding-top:60px}
       .wrap{margin-top:28px}
     }
-    
+
     /* YouTube-embed */
-.yt{
-  position:relative; width:100%; padding-top:56.25%; /* 16:9 */
-  border:1px solid var(--button-border); border-radius:var(--radius);
-  overflow:hidden; background:#000;
-}
-.yt iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+    .yt{
+      position:relative; width:100%; padding-top:56.25%; /* 16:9 */
+      border:1px solid var(--button-border); border-radius:var(--radius);
+      overflow:hidden; background:#000;
+    }
+    .yt iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 
-.yt + .btn { display: none; }
+    .yt + .btn { display: none; }
 
-
- /* PRESS */
-.press-toggle{ margin-top: 12px; cursor:pointer; }
-
-.press-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:12px;
-  margin-top:12px;
-}
-
-@media (max-width:520px){
-  .press-grid{ grid-template-columns: 1fr; }
-}
-
-.press-item{
-  display:block;
-  border:1px solid var(--button-border);
-  border-radius:var(--radius);
-  overflow:hidden;
-  aspect-ratio: 4 / 3;   /* или 1 / 1 если хочешь квадрат */
-  background:#000;       /* чтобы если грузится — было красиво */
-}
-
-.press-item img{
-  width:100%;
-  height:100%;
-  object-fit:cover;      /* обрезает по краям, зато ровно */
-  display:block;
-}
-
-.is-hidden{ display:none; }
-
-   .press-toggle{
-  font: inherit;       /* наследует тот же шрифт */
-}
-
-.press-toggle .txt{
-  font-size: inherit;  /* ровно как у остальных */
-  font-weight: 500;    /* как у .btn .txt */
-  opacity: 1;
-}
-    
+    /* PRESS */
+    .press-toggle{
+      margin-top: 12px;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      font: inherit;
+    }
+    .press-toggle .txt{
+      font-size: 18px; /* эмоджи выглядит лучше */
+      font-weight: 500;
+      line-height: 1;
+    }
+    .press-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width:520px){
+      .press-grid{ grid-template-columns: 1fr; }
+    }
+    .press-item{
+      display:block;
+      border:1px solid var(--button-border);
+      border-radius:var(--radius);
+      overflow:hidden;
+      aspect-ratio: 4 / 3;
+      background:#000;
+    }
+    .press-item img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .is-hidden{ display:none; }
   </style>
-
-   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MusicGroup",
-  "name": "Бужба",
-  "alternateName": "buzhba",
-  "url": "https://buzhba.com",
-  "genre": "Russian Indie",
-  "founder": {
-    "@type": "Person",
-    "name": "Жорж Корнилов"
-  },
-  "sameAs": [
-    "https://vk.com/buzhba",
-    "https://open.spotify.com/artist/...",
-    "https://music.apple.com/...",
-    "https://www.youtube.com/..."
-  ]
-}
-</script>
-  
-  
 </head>
+
 <body>
-    
-    
-    <!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
@@ -168,10 +159,9 @@
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103973956', 'ym');
 
     ym(103973956, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/103973956" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/103973956" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 
   <main class="wrap">
     <section class="panel">
@@ -200,152 +190,139 @@
       </header>
 
       <div class="links" id="links"></div>
-     
     </section>
-    <footer class="footer">2026 © бужба</footer>
+
+    <footer class="footer">© бужба</footer>
   </main>
 
-<script>
-(async function () {
-  // читаем тот же корневой JSON через прокси
-  async function getJson(url){
-    const res = await fetch(url + (url.includes('?')?'&':'?') + 'ts=' + Date.now(), {
-      cache: "no-store", headers: { "Accept": "application/json" }
+  <script>
+  (async function () {
+    async function getJson(url){
+      const res = await fetch(url + (url.includes('?')?'&':'?') + 'ts=' + Date.now(), {
+        cache: "no-store",
+        headers: { "Accept": "application/json" }
+      });
+      if (!res.ok) throw new Error(url + " → HTTP " + res.status);
+      return res.json();
+    }
+
+    let data;
+    try { data = await getJson("/links.json"); }
+    catch(e){ console.error("links.json error:", e); data = { title:"", items:[], press:[] }; }
+
+    renderLinks({
+      title: typeof data.title === "string" ? data.title : "",
+      items: Array.isArray(data.items) ? data.items : [],
+      press: Array.isArray(data.press) ? data.press : []
     });
-    if (!res.ok) throw new Error(url + " → HTTP " + res.status);
-    return res.json();
-  }
 
-  let data;
-  try { data = await getJson("/links.json"); }
-  catch(e){ console.error("links.json.php error:", e); data = { title:"", items:[] }; }
+    function isYouTube(url){
+      return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i.test(url || "");
+    }
+    function ytId(url){
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes("youtu.be")) return (u.pathname.split("/")[1] || "").slice(0,11);
+        if (u.hostname.includes("youtube.com")) {
+          if (u.pathname === "/watch") return (u.searchParams.get("v") || "").slice(0,11);
+          const m = u.pathname.match(/^\/shorts\/([A-Za-z0-9_-]{11})/);
+          if (m) return m[1];
+        }
+      } catch(_) {}
+      const m = (url||"").match(/(?:v=|\/shorts\/|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+      return m ? m[1] : null;
+    }
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[m]));
+    }
 
-  renderLinks({
-    title: typeof data.title === "string" ? data.title : "",
-    items: Array.isArray(data.items) ? data.items : []
-  });
+    function renderLinks(data){
+      const list = document.getElementById("links");
+      list.innerHTML = "";
 
-  /* ---------- helpers ---------- */
-  function isYouTube(url){
-    return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i.test(url || "");
-  }
-  function ytId(url){
-    try {
-      const u = new URL(url);
-      if (u.hostname.includes("youtu.be")) return (u.pathname.split("/")[1] || "").slice(0,11);
-      if (u.hostname.includes("youtube.com")) {
-        if (u.pathname === "/watch") return (u.searchParams.get("v") || "").slice(0,11);
-        const m = u.pathname.match(/^\/shorts\/([A-Za-z0-9_-]{11})/);
-        if (m) return m[1];
-      }
-    } catch(_) {}
-    const m = (url||"").match(/(?:v=|\/shorts\/|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-    return m ? m[1] : null;
-  }
-  function escapeHtml(s){
-    return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
-  }
+      const desc = document.querySelector(".desc");
+      if (desc) desc.textContent = data.title || "";
 
-  /* ---------- render ---------- */
-  function renderLinks(data){
-    const list = document.getElementById("links");
-    list.innerHTML = "";
-    const desc = document.querySelector(".desc");
-    if (desc) desc.textContent = data.title || "";
+      const items = (data.items || []).filter(i => i && i.url);
+      const pinned  = items.filter(i => i.pin);
+      const regular = items.filter(i => !i.pin);
 
-    const items = (data.items || []).filter(i => i && i.url);
-    const pinned  = items.filter(i => i.pin);
-    const regular = items.filter(i => !i.pin);
+      const add = (i, p=false) => {
+        const url = i.url;
 
-    const add = (i, p=false) => {
-      const url = i.url;
-      if (isYouTube(url)) {
-        const id = ytId(url);
-        if (id) {
-          const wrap = document.createElement("div");
-          wrap.className = "yt";
-          wrap.innerHTML = `<iframe
+        if (isYouTube(url)) {
+          const id = ytId(url);
+          if (id) {
+            const wrap = document.createElement("div");
+            wrap.className = "yt";
+            wrap.innerHTML = `<iframe
               src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
               title="${escapeHtml(i.label || 'YouTube video')}"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen></iframe>`;
-          list.appendChild(wrap);
-          // подпись/кнопка под видео (если есть красивый текст)
-          if (i.label && i.label.trim() && i.label.trim() !== url.trim()) {
-            const a = document.createElement("a");
-            a.className = "btn";
-            a.href = url; a.target = "_blank"; a.rel = "noopener";
-            a.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label)}</span>`;
-            list.appendChild(a);
+            list.appendChild(wrap);
+
+            if (i.label && i.label.trim() && i.label.trim() !== url.trim()) {
+              const a = document.createElement("a");
+              a.className = "btn";
+              a.href = url; a.target = "_blank"; a.rel = "noopener";
+              a.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label)}</span>`;
+              list.appendChild(a);
+            }
+            return;
           }
-          return;
         }
+
+        const a = document.createElement("a");
+        a.className = "btn";
+        a.href = url; a.target = "_blank"; a.rel = "noopener";
+        a.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label || url)}</span>`;
+        list.appendChild(a);
+      };
+
+      pinned.forEach(i => add(i, true));
+      regular.forEach(i => add(i, false));
+
+      // ---------- PRESS: кнопка + грид (из links.json) ----------
+      const photos = Array.isArray(data.press) ? data.press : [];
+      const clean = photos.filter(p => p && p.src);
+
+      if (clean.length) {
+        const pressBtn = document.createElement("button");
+        pressBtn.className = "btn press-toggle";
+        pressBtn.type = "button";
+        pressBtn.setAttribute("aria-expanded", "false");
+        pressBtn.setAttribute("aria-controls", "pressGrid");
+        pressBtn.innerHTML = `<span class="txt">🖼</span>`;
+
+        const pressGrid = document.createElement("div");
+        pressGrid.id = "pressGrid";
+        pressGrid.className = "press-grid is-hidden";
+
+        clean.slice(0, 12).forEach(p => {
+          const a = document.createElement("a");
+          a.className = "press-item";
+          a.href = p.src;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.innerHTML = `<img src="${escapeHtml(p.src)}" alt="${escapeHtml(p.alt || "Бужба — фото")}" loading="lazy">`;
+          pressGrid.appendChild(a);
+        });
+
+        pressBtn.addEventListener("click", () => {
+          const isOpen = pressBtn.getAttribute("aria-expanded") === "true";
+          pressBtn.setAttribute("aria-expanded", String(!isOpen));
+          pressGrid.classList.toggle("is-hidden", isOpen);
+          pressBtn.querySelector(".txt").textContent = isOpen ? "🖼" : "✕";
+        });
+
+        list.appendChild(pressBtn);
+        list.appendChild(pressGrid);
       }
-      // обычная ссылка-кнопка
-      const a = document.createElement("a");
-      a.className = "btn";
-      a.href = url; a.target = "_blank"; a.rel = "noopener";
-      a.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label || url)}</span>`;
-      list.appendChild(a);
-    };
-
-    pinned.forEach(i => add(i, true));
-    regular.forEach(i => add(i, false));
-    // ---------- PRESS: кнопка + грид ----------
-const pressBtn = document.createElement("button");
-pressBtn.className = "btn press-toggle";
-pressBtn.type = "button";
-pressBtn.setAttribute("aria-expanded", "false");
-pressBtn.setAttribute("aria-controls", "pressGrid");
-pressBtn.innerHTML = `<span class="txt">📷</span>`;
-
-const pressGrid = document.createElement("div");
-pressGrid.id = "pressGrid";
-pressGrid.className = "press-grid is-hidden";
-
-// сюда добавляешь сколько хочешь фото
-const photos = [
-  { src:"images/press/4.jpg", alt: "Жорж Корнилов (Бужба) дома с собакой, неформальный портрет" },
-   { src:"images/press/1.jpeg", alt: "Жорж Корнилов (Бужба) дома с собакой, неформальный портрет" },
-   { src:"images/press/2.jpg", alt: "Жорж Корнилов, чёрно-белый студийный портрет, музыкальный проект Бужба" },
-   { src:"images/press/image 2.jpg", alt: "Бужба с электрогитарой дома, репетиция в квартире" },
-   { src:"images/press/img1.jpeg", alt: "Жорж Корнилов с бас-гитарой в домашней студии" },
-   { src:"images/press/img2.JPG", alt: "Бужба, портрет в помещении, красная панама" },
-   { src:"images/press/img3.jpeg", alt: "Жорж Корнилов (Бужба) с акустической гитарой у деревянного дома" },
-    { src:"images/press/6.jpg", alt: "Бужба с теннисной ракеткой на фоне неба" },
-   { src:"images/press/7.jpg", alt: "Жорж Корнилов в поле с микрофоном, музыкальный проект Бужба" },
-    { src:"images/press/8.jpg", alt: "Бужба на фоне моря и скал, пейзажный кадр" },
-  { src:"images/press/img4.jpeg",    alt: "Жорж Корнилов за кулисами концерта, выступление Бужба" }
-];
-
-photos.forEach(p => {
-  const a = document.createElement("a");
-  a.className = "press-item";
-  a.href = p.src;
-  a.target = "_blank";
-  a.rel = "noopener";
-  a.innerHTML = `<img src="${escapeHtml(p.src)}" alt="${escapeHtml(p.alt)}" loading="lazy">`;
-  pressGrid.appendChild(a);
-});
-
-pressBtn.addEventListener("click", () => {
-  const isOpen = pressBtn.getAttribute("aria-expanded") === "true";
-  pressBtn.setAttribute("aria-expanded", String(!isOpen));
-  pressGrid.classList.toggle("is-hidden", isOpen);
-  pressBtn.querySelector(".txt").textContent = isOpen ? "📷" : "Закрыть фото";
-});
-
-// добавляем в тот же список кнопок (ВАЖНО)
-list.appendChild(pressBtn);
-list.appendChild(pressGrid);
-  }
-})();
-
-
-</script>
-
-
-
-
+    }
+  })();
+  </script>
 </body>
 </html>
