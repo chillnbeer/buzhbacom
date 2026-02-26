@@ -301,7 +301,7 @@
         pressGrid.id = "pressGrid";
         pressGrid.className = "press-grid is-hidden";
 
-        clean.slice(0, 12).forEach(p => {
+        [...clean].reverse().slice(0, 12).forEach(p => {
           const a = document.createElement("a");
           a.className = "press-item";
           a.href = p.src;
