@@ -52,5 +52,10 @@
       "pin": false
     }
   ],
-  "press": []
+  "press": [
+    {
+      "src": "images/press/20260226-223535-6224.jpg",
+      "alt": "Бужба — фото"
+    }
+  ]
 }
