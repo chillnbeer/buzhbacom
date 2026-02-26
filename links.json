@@ -2,13 +2,54 @@
   "title": "",
   "items": [
     {
-      "label": "YouTube",
-      "url": "https://youtube.com/@buzhba",
+      "label": "💸💸💸",
+      "url": "https://tips.yandex.ru/guest/payment/6073430?wl=yandex_music",
+      "pin": false
+    },
+    {
+      "label": "EP «Цех live x mmmesss»",
+      "url": "https://band.link/livebuzhba",
+      "pin": false
+    },
+    {
+      "label": "Cингл «Plantasia» (feat. Tremakasi)",
+      "url": "https://upupupmusic.com/releases/plantasia/",
+      "pin": false
+    },
+    {
+      "label": "Альбом «Когда ты ну очень крутой»",
+      "url": "https://band.link/ppDGl",
       "pin": true
     },
     {
-      "label": "Telegram",
-      "url": "https://t.me/buzhba"
+      "label": "Альбом «Бобубип»",
+      "url": "https://band.link/bobubip",
+      "pin": false
+    },
+    {
+      "label": "Cингл «Не позвонишь мне»",
+      "url": "https://band.link/bnpm",
+      "pin": false
+    },
+    {
+      "label": "Cингл «Never Seen it Coming» (feat. Conor Heafey)",
+      "url": "https://band.link/RrN9y",
+      "pin": false
+    },
+    {
+      "label": "Cингл «Новогодняя» (feat. Skookiny Deti)",
+      "url": "https://band.link/KM8nB",
+      "pin": false
+    },
+    {
+      "label": "Альбом «Веселые риффы»",
+      "url": "https://band.link/dyOE2",
+      "pin": false
+    },
+    {
+      "label": "Поп-танцор",
+      "url": "https://www.youtube.com/watch?v=4dHvzRTAiqI",
+      "pin": false
     }
   ]
 }
