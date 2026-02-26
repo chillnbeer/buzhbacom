@@ -1,18 +1,7 @@
 {
   "title": "",
   "items": [
-    {
-      "label": "Новый альбом «Когда ты ну очень крутой»",
-      "url": "https://yourlinkhere.com",
-      "pin": true
-    },
-    {
-      "label": "YouTube",
-      "url": "https://youtube.com/@buzhba"
-    },
-    {
-      "label": "VK",
-      "url": "https://vk.com/buzhba"
-    }
+    { "label": "YouTube", "url": "https://youtube.com/@buzhba", "pin": true },
+    { "label": "Telegram", "url": "https://t.me/buzhba" }
   ]
 }
