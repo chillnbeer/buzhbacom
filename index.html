@@ -150,6 +150,33 @@
 .is-hidden{
   display: none;
 }
+
+.press-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:12px;
+  margin-top:12px;
+}
+
+@media (max-width:520px){
+  .press-grid{ grid-template-columns: 1fr; }
+}
+
+.press-item{
+  display:block;
+  border:1px solid var(--button-border);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+
+.press-item img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.is-hidden{ display:none; }
+    
   </style>
   
   
@@ -199,30 +226,7 @@
       </header>
 
       <div class="links" id="links"></div>
-      <!-- PRESS: кнопка + скрытая сетка фото -->
-<button class="btn press-toggle" type="button" aria-expanded="false" aria-controls="pressGrid">
-  📷 Фото
-</button>
-
-<div class="press-grid is-hidden" id="pressGrid">
-  <figure>
-    <a href="images/press/4.jpg" target="_blank" rel="noopener">
-      <img src="images/press/4.jpg"
-           alt="Бужба — портрет"
-           loading="lazy">
-    </a>
-    <figcaption>Портрет</figcaption>
-  </figure>
-
-  <figure>
-    <a href="images/press/buzhba-press-live-2026.jpg" target="_blank" rel="noopener">
-      <img src="images/press/buzhba-press-live-2026.jpg"
-           alt="Бужба — концерт"
-           loading="lazy">
-    </a>
-    <figcaption>Концерт</figcaption>
-  </figure>
-</div>
+     
     </section>
     <footer class="footer">© бужба</footer>
   </main>
@@ -313,20 +317,47 @@
 
     pinned.forEach(i => add(i, true));
     regular.forEach(i => add(i, false));
-  }
-})();
-// PRESS: toggle grid
-const pressBtn = document.querySelector(".press-toggle");
-const pressGrid = document.getElementById("pressGrid");
+    // ---------- PRESS: кнопка + грид ----------
+const pressBtn = document.createElement("button");
+pressBtn.className = "btn press-toggle";
+pressBtn.type = "button";
+pressBtn.setAttribute("aria-expanded", "false");
+pressBtn.setAttribute("aria-controls", "pressGrid");
+pressBtn.innerHTML = `<span class="txt">Фото</span>`;
 
-pressBtn?.addEventListener("click", () => {
+const pressGrid = document.createElement("div");
+pressGrid.id = "pressGrid";
+pressGrid.className = "press-grid is-hidden";
+
+// сюда добавляешь сколько хочешь фото
+const photos = [
+  { src:"images/press/buzhba-press-portrait-2026.jpg", alt:"Бужба — портрет" },
+  { src:"images/press/buzhba-press-live-2026.jpg",    alt:"Бужба — концерт" }
+];
+
+photos.forEach(p => {
+  const a = document.createElement("a");
+  a.className = "press-item";
+  a.href = p.src;
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.innerHTML = `<img src="${escapeHtml(p.src)}" alt="${escapeHtml(p.alt)}" loading="lazy">`;
+  pressGrid.appendChild(a);
+});
+
+pressBtn.addEventListener("click", () => {
   const isOpen = pressBtn.getAttribute("aria-expanded") === "true";
   pressBtn.setAttribute("aria-expanded", String(!isOpen));
-  pressGrid?.classList.toggle("is-hidden", isOpen);
-
-  // (опционально) меняем текст кнопки
-  pressBtn.textContent = isOpen ? "📷 Фото" : "✕ Закрыть фото";
+  pressGrid.classList.toggle("is-hidden", isOpen);
+  pressBtn.querySelector(".txt").textContent = isOpen ? "Фото" : "Закрыть фото";
 });
+
+// добавляем в тот же список кнопок (ВАЖНО)
+list.appendChild(pressBtn);
+list.appendChild(pressGrid);
+  }
+})();
+
 
 </script>
 
