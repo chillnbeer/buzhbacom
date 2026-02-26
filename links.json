@@ -1,7 +1,14 @@
 {
   "title": "",
   "items": [
-    { "label": "YouTube", "url": "https://youtube.com/@buzhba", "pin": true },
-    { "label": "Telegram", "url": "https://t.me/buzhba" }
+    {
+      "label": "YouTube",
+      "url": "https://youtube.com/@buzhba",
+      "pin": true
+    },
+    {
+      "label": "Telegram",
+      "url": "https://t.me/buzhba"
+    }
   ]
 }
