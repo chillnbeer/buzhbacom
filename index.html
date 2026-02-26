@@ -297,7 +297,7 @@ pressBtn.className = "btn press-toggle";
 pressBtn.type = "button";
 pressBtn.setAttribute("aria-expanded", "false");
 pressBtn.setAttribute("aria-controls", "pressGrid");
-pressBtn.innerHTML = `<span class="txt">Фото</span>`;
+pressBtn.innerHTML = `<span class="txt">📷</span>`;
 
 const pressGrid = document.createElement("div");
 pressGrid.id = "pressGrid";
@@ -332,7 +332,7 @@ pressBtn.addEventListener("click", () => {
   const isOpen = pressBtn.getAttribute("aria-expanded") === "true";
   pressBtn.setAttribute("aria-expanded", String(!isOpen));
   pressGrid.classList.toggle("is-hidden", isOpen);
-  pressBtn.querySelector(".txt").textContent = isOpen ? "Фото" : "Закрыть фото";
+  pressBtn.querySelector(".txt").textContent = isOpen ? "📷" : "Закрыть фото";
 });
 
 // добавляем в тот же список кнопок (ВАЖНО)
