@@ -150,7 +150,7 @@
   }
 
   let data;
-  try { data = await getJson("/links.json.php"); }
+  try { data = await getJson("/links.json"); }
   catch(e){ console.error("links.json.php error:", e); data = { title:"", items:[] }; }
 
   renderLinks({
