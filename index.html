@@ -1,31 +1,11 @@
 <!doctype html>
 <html lang="ru">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MusicGroup",
-  "name": "Бужба",
-  "alternateName": "buzhba",
-  "url": "https://buzhba.com",
-  "genre": "Russian Indie",
-  "founder": {
-    "@type": "Person",
-    "name": "Жорж Корнилов"
-  },
-  "sameAs": [
-    "https://vk.com/buzhba",
-    "https://open.spotify.com/artist/...",
-    "https://music.apple.com/...",
-    "https://www.youtube.com/..."
-  ]
-}
-</script>
+ 
 <head>
   <title>Бужба</title>
 <meta name="description" content="Бужба — инди-проект из Екатеринбурга. Альбом «Когда ты ну очень крутой», новые релизы, концерты и ссылки на стриминги.">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-  <title>бужба</title>
   <meta name="description" content="бужба: музыка, клипы, соцсети, донаты." />
 
   <!-- Open Graph / Twitter (красивый предпросмотр в соцсетях) -->
@@ -108,48 +88,8 @@
 .yt + .btn { display: none; }
 
 
-  /* PRESS */
-.press-toggle{
-  margin-top: 12px;
-}
-
-.press-grid{
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: var(--gap);
-}
-
-@media (max-width:520px){
-  .press-grid{ grid-template-columns: 1fr; }
-}
-
-.press-grid figure{
-  margin: 0;
-}
-
-.press-grid a{
-  display: block;
-}
-
-.press-grid img{
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: var(--radius);
-  border: 1px solid var(--button-border);
-}
-
-.press-grid figcaption{
-  margin-top: 8px;
-  font-size: 12px;
-  opacity: .65;
-  text-align: center;
-}
-
-.is-hidden{
-  display: none;
-}
+ /* PRESS */
+.press-toggle{ margin-top: 12px; cursor:pointer; }
 
 .press-grid{
   display:grid;
@@ -178,6 +118,27 @@
 .is-hidden{ display:none; }
     
   </style>
+
+   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "Бужба",
+  "alternateName": "buzhba",
+  "url": "https://buzhba.com",
+  "genre": "Russian Indie",
+  "founder": {
+    "@type": "Person",
+    "name": "Жорж Корнилов"
+  },
+  "sameAs": [
+    "https://vk.com/buzhba",
+    "https://open.spotify.com/artist/...",
+    "https://music.apple.com/...",
+    "https://www.youtube.com/..."
+  ]
+}
+</script>
   
   
 </head>
