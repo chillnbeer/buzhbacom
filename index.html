@@ -274,14 +274,6 @@
                 </svg>
               </div>`;
             list.appendChild(a);
-
-            if (i.label && i.label.trim() && i.label.trim() !== url.trim()) {
-              const btn = document.createElement("a");
-              btn.className = "btn";
-              btn.href = url; btn.target = "_blank"; btn.rel = "noopener";
-              btn.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label)}</span>`;
-              list.appendChild(btn);
-            }
             return;
           }
         }
