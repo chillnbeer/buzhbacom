@@ -50,6 +50,11 @@
       "label": "Поп-танцор",
       "url": "https://www.youtube.com/watch?v=4dHvzRTAiqI",
       "pin": false
+    },
+    {
+      "label": "бужба: Цех live x mmmesss",
+      "url": "https://www.youtube.com/watch?v=O241obUNimI",
+      "pin": false
     }
   ],
   "press": [
@@ -96,6 +101,10 @@
     {
       "src": "images/press/20260226-225716-05fe.jpg",
       "alt": "Жорж Корнилов (Бужба) дома с собакой"
+    },
+    {
+      "src": "images/press/20260227-091322-d3ff.jpg",
+      "alt": "Жорж Корнилов (группа Бужба) на берегу моря"
     }
   ]
 }
