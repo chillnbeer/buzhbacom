@@ -100,15 +100,17 @@
       .wrap{margin-top:28px}
     }
 
-    /* YouTube-embed */
+    /* YouTube-превью */
     .yt{
       position:relative; width:100%; padding-top:56.25%; /* 16:9 */
       border:1px solid var(--button-border); border-radius:var(--radius);
-      overflow:hidden; background:#000;
+      overflow:hidden; background:#000; display:block; text-decoration:none;
     }
-    .yt iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-
-    .yt + .btn { display: none; }
+    .yt img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+    .yt-play{
+      position:absolute; inset:0; display:grid; place-items:center; pointer-events:none;
+    }
+    .yt-play svg{ width:72px; height:72px; filter:drop-shadow(0 2px 8px rgba(0,0,0,.5)); }
 
     /* PRESS */
     .press-toggle{
@@ -259,21 +261,26 @@
         if (isYouTube(url)) {
           const id = ytId(url);
           if (id) {
-            const wrap = document.createElement("div");
-            wrap.className = "yt";
-            wrap.innerHTML = `<iframe
-              src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
-              title="${escapeHtml(i.label || 'YouTube video')}"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>`;
-            list.appendChild(wrap);
+            const a = document.createElement("a");
+            a.className = "yt";
+            a.href = url; a.target = "_blank"; a.rel = "noopener";
+            a.title = escapeHtml(i.label || "YouTube");
+            a.innerHTML = `
+              <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="${escapeHtml(i.label || 'YouTube video')}" loading="lazy">
+              <div class="yt-play">
+                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="68" height="48" rx="12" fill="#FF0000" opacity="0.92"/>
+                  <polygon points="26,14 26,34 48,24" fill="#fff"/>
+                </svg>
+              </div>`;
+            list.appendChild(a);
 
             if (i.label && i.label.trim() && i.label.trim() !== url.trim()) {
-              const a = document.createElement("a");
-              a.className = "btn";
-              a.href = url; a.target = "_blank"; a.rel = "noopener";
-              a.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label)}</span>`;
-              list.appendChild(a);
+              const btn = document.createElement("a");
+              btn.className = "btn";
+              btn.href = url; btn.target = "_blank"; btn.rel = "noopener";
+              btn.innerHTML = `<span class="txt">${p ? "📌 " : ""}${escapeHtml(i.label)}</span>`;
+              list.appendChild(btn);
             }
             return;
           }
