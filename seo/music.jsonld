@@ -1,0 +1,110 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MusicGroup",
+      "@id": "https://buzhba.com/#artist",
+      "name": "Бужба",
+      "alternateName": "buzhba",
+      "url": "https://buzhba.com/",
+      "genre": "Russian Indie",
+      "image": "https://buzhba.com/images/buzhba-logo.png",
+      "logo": "https://buzhba.com/images/buzhba-logo.png",
+      "sameAs": [
+        "https://vk.com/buzhba",
+        "https://youtube.com/@buzhba",
+        "https://t.me/buzhba",
+        "https://instagram.com/buzhba100",
+        "https://tiktok.com/@buzhba"
+      ]
+    },
+
+    {
+      "@type": "MusicAlbum",
+      "@id": "https://buzhba.com/#album-kogda",
+      "name": "Когда ты ну очень крутой",
+      "image": "https://buzhba.com/images/albums/kogda-ty-nu-ochen-krutoy.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicAlbum",
+      "@id": "https://buzhba.com/#album-veselye-riffy",
+      "name": "Весёлые риффы",
+      "image": "https://buzhba.com/images/albums/veselye-riffy.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicAlbum",
+      "@id": "https://buzhba.com/#album-bobubip",
+      "name": "Бобубип",
+      "image": "https://buzhba.com/images/albums/bobubip.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicAlbum",
+      "@id": "https://buzhba.com/#ep-ceh-live",
+      "name": "Цех live x mmmesss",
+      "image": "https://buzhba.com/images/albums/ceh-live-mmmesss.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+
+    {
+      "@type": "MusicRecording",
+      "@id": "https://buzhba.com/#single-kak-ostatsya",
+      "name": "Как остаться с тобою",
+      "image": "https://buzhba.com/images/albums/kak-ostatsya-s-toboy.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicRecording",
+      "@id": "https://buzhba.com/#single-doggo",
+      "name": "Догго",
+      "image": "https://buzhba.com/images/albums/doggo.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicRecording",
+      "@id": "https://buzhba.com/#single-luchshiy-den",
+      "name": "Лучший день",
+      "image": "https://buzhba.com/images/albums/luchshiy-den.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicRecording",
+      "@id": "https://buzhba.com/#single-modnoe-kafe",
+      "name": "Модное кафе",
+      "image": "https://buzhba.com/images/albums/modnoe-kafe.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicRecording",
+      "@id": "https://buzhba.com/#single-ne-pozvonish",
+      "name": "Не позвонишь мне",
+      "image": "https://buzhba.com/images/albums/ne-pozvonish-mne.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicRecording",
+      "@id": "https://buzhba.com/#single-never-seen-it-coming",
+      "name": "Never Seen It Coming",
+      "image": "https://buzhba.com/images/albums/never-seen-it-coming.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicRecording",
+      "@id": "https://buzhba.com/#single-veselye-riffy-single",
+      "name": "Весёлые риффы (single)",
+      "image": "https://buzhba.com/images/albums/veselye-riffy-single.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    },
+    {
+      "@type": "MusicRecording",
+      "@id": "https://buzhba.com/#single-eshe-chut",
+      "name": "Ещё чуть-чуть весёлых риффов",
+      "image": "https://buzhba.com/images/albums/eshe-chut-veselyh-riffov.jpg",
+      "byArtist": { "@id": "https://buzhba.com/#artist" }
+    }
+  ]
+}
+</script>
