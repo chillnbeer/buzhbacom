@@ -1,7 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://buzhba.com/doggo</loc><lastmod>2025-08-21T15:40:27+03:00</lastmod></url>
-  <url><loc>https://buzhba.com/dver</loc><lastmod>2025-08-21T15:50:03+03:00</lastmod></url>
-  <url><loc>https://buzhba.com/dog</loc><lastmod>2025-08-21T15:53:42+03:00</lastmod></url>
-  <url><loc>https://buzhba.com/test2</loc><lastmod>2025-08-21T15:59:57+03:00</lastmod></url>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://buzhba.com/</loc>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/kogda-ty-nu-ochen-krutoy.jpg</image:loc>
+      <image:caption>Бужба — Когда ты ну очень крутой — обложка альбома</image:caption>
+      <image:title>Бужба — Когда ты ну очень крутой</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/veselye-riffy.jpg</image:loc>
+      <image:caption>Бужба — Весёлые риффы — обложка альбома</image:caption>
+      <image:title>Бужба — Весёлые риффы</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/bobubip.jpg</image:loc>
+      <image:caption>Бужба — Бобубип — обложка релиза</image:caption>
+      <image:title>Бужба — Бобубип</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/ceh-live-mmmesss.jpg</image:loc>
+      <image:caption>Бужба — Цех live x mmmesss — обложка релиза</image:caption>
+      <image:title>Бужба — Цех live x mmmesss</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/doggo.jpg</image:loc>
+      <image:caption>Бужба — Догго — обложка сингла</image:caption>
+      <image:title>Бужба — Догго</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/modnoe-kafe.jpg</image:loc>
+      <image:caption>Бужба — Модное кафе — обложка сингла</image:caption>
+      <image:title>Бужба — Модное кафе</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/ne-pozvonish-mne.jpg</image:loc>
+      <image:caption>Бужба — Не позвонишь мне — обложка сингла</image:caption>
+      <image:title>Бужба — Не позвонишь мне</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/never-seen-it-coming.jpg</image:loc>
+      <image:caption>Бужба — Never Seen It Coming — обложка сингла</image:caption>
+      <image:title>Бужба — Never Seen It Coming</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/veselye-riffy-single.jpg</image:loc>
+      <image:caption>Бужба — Весёлые риффы (single) — обложка</image:caption>
+      <image:title>Бужба — Весёлые риффы (single)</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/eshche-chut-veselyh-riffov.jpg</image:loc>
+      <image:caption>Бужба — Ещё чуть-чуть весёлых риффов — обложка</image:caption>
+      <image:title>Бужба — Ещё чуть-чуть весёлых риффов</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/kak-ostatsya-s-toboy.jpg</image:loc>
+      <image:caption>Бужба — Как остаться с тобою — обложка сингла</image:caption>
+      <image:title>Бужба — Как остаться с тобою</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://buzhba.com/images/covers/luchshiy-den.jpg</image:loc>
+      <image:caption>Бужба — Лучший день — обложка сингла</image:caption>
+      <image:title>Бужба — Лучший день</image:title>
+    </image:image>
+  </url>
+
 </urlset>
