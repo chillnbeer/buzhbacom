@@ -5,78 +5,89 @@
 
   <url>
     <loc>https://buzhba.com/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/kogda-ty-nu-ochen-krutoy.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/kogda-ty-nu-ochen-krutoy.jpg</image:loc>
       <image:caption>Бужба — Когда ты ну очень крутой — обложка альбома</image:caption>
       <image:title>Бужба — Когда ты ну очень крутой</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/veselye-riffy.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/veselye-riffy.jpg</image:loc>
       <image:caption>Бужба — Весёлые риффы — обложка альбома</image:caption>
       <image:title>Бужба — Весёлые риффы</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/bobubip.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/bobubip.jpg</image:loc>
       <image:caption>Бужба — Бобубип — обложка релиза</image:caption>
       <image:title>Бужба — Бобубип</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/ceh-live-mmmesss.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/ceh-live-mmmesss.jpg</image:loc>
       <image:caption>Бужба — Цех live x mmmesss — обложка релиза</image:caption>
       <image:title>Бужба — Цех live x mmmesss</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/doggo.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/doggo.jpg</image:loc>
       <image:caption>Бужба — Догго — обложка сингла</image:caption>
       <image:title>Бужба — Догго</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/modnoe-kafe.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/modnoe-kafe.jpg</image:loc>
       <image:caption>Бужба — Модное кафе — обложка сингла</image:caption>
       <image:title>Бужба — Модное кафе</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/ne-pozvonish-mne.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/ne-pozvonish-mne.jpg</image:loc>
       <image:caption>Бужба — Не позвонишь мне — обложка сингла</image:caption>
       <image:title>Бужба — Не позвонишь мне</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/never-seen-it-coming.jpg</image:loc>
-      <image:caption>Бужба — Never Seen It Coming — обложка сингла</image:caption>
-      <image:title>Бужба — Never Seen It Coming</image:title>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://buzhba.com/images/covers/veselye-riffy-single.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/veselye-riffy-single.jpg</image:loc>
       <image:caption>Бужба — Весёлые риффы (single) — обложка</image:caption>
       <image:title>Бужба — Весёлые риффы (single)</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/eshche-chut-veselyh-riffov.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/eshe-chut-veselyh-riffov.jpg</image:loc>
       <image:caption>Бужба — Ещё чуть-чуть весёлых риффов — обложка</image:caption>
       <image:title>Бужба — Ещё чуть-чуть весёлых риффов</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/kak-ostatsya-s-toboy.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/kak-ostatsya-s-toboy.jpg</image:loc>
       <image:caption>Бужба — Как остаться с тобою — обложка сингла</image:caption>
       <image:title>Бужба — Как остаться с тобою</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://buzhba.com/images/covers/luchshiy-den.jpg</image:loc>
+      <image:loc>https://buzhba.com/images/albums/luchshiy-den.jpg</image:loc>
       <image:caption>Бужба — Лучший день — обложка сингла</image:caption>
       <image:title>Бужба — Лучший день</image:title>
     </image:image>
+  </url>
+
+  <url>
+    <loc>https://buzhba.com/index2</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buzhba.com/buzhba-johnsmovies</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>
