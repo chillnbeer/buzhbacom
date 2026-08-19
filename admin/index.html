@@ -86,34 +86,64 @@
 
         <section class="category admin-page" id="categories" data-admin-page="categories">
           <div class="category-title">Категории</div>
-          <div class="split">
-            <form class="field" id="categoryForm">
+          <div class="page-actions">
+            <a class="button primary" href="/admin/categories/new/">Создать категорию</a>
+            <button class="button" type="button" id="resetData">Сбросить демо-данные</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Категория</th>
+                <th class="count">Разделов</th>
+                <th class="actions">Действия</th>
+              </tr>
+            </thead>
+            <tbody id="categoryRows"></tbody>
+          </table>
+        </section>
+
+        <section class="category admin-page" id="category-new" data-admin-page="categories-new">
+          <div class="category-title">Создать категорию</div>
+          <form class="editor" id="categoryForm">
+            <div class="field">
               <label for="categoryTitle">Название категории</label>
               <input id="categoryTitle" value="бужба">
+            </div>
+            <div class="field">
               <label for="categorySlug">URL slug</label>
               <input id="categorySlug" value="buzhba" inputmode="url" autocomplete="off">
+            </div>
+            <div class="field wide">
               <label for="categoryDesc">Описание</label>
               <textarea id="categoryDesc">Основные разделы форума группы Бужба.</textarea>
-              <div class="button-row">
-                <button class="button primary" type="submit">Сохранить категорию</button>
-                <button class="button" type="button" id="resetData">Сбросить демо-данные</button>
-              </div>
-            </form>
-            <table>
-              <thead>
-                <tr>
-                  <th>Категория</th>
-                  <th class="count">Разделов</th>
-                  <th class="actions">Действия</th>
-                </tr>
-              </thead>
-              <tbody id="categoryRows"></tbody>
-            </table>
-          </div>
+            </div>
+            <div class="form-actions">
+              <button class="button primary" type="submit">Сохранить категорию</button>
+              <a class="button" href="/admin/categories/">К списку категорий</a>
+            </div>
+          </form>
         </section>
 
         <section class="category admin-page" id="sections" data-admin-page="sections">
           <div class="category-title">Разделы</div>
+          <div class="page-actions">
+            <a class="button primary" href="/admin/sections/new/">Создать раздел</a>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Форум</th>
+                <th class="count">Тем</th>
+                <th class="count">Статус</th>
+                <th class="actions">Действия</th>
+              </tr>
+            </thead>
+            <tbody id="sectionRows"></tbody>
+          </table>
+        </section>
+
+        <section class="category admin-page" id="section-new" data-admin-page="sections-new">
+          <div class="category-title">Создать раздел</div>
           <form class="editor" id="sectionForm">
             <div class="field">
               <label for="sectionName">Название раздела</label>
@@ -134,24 +164,32 @@
               <textarea id="sectionDescription">Описание нового раздела.</textarea>
             </div>
             <div class="form-actions">
-              <button class="button primary" type="submit">Создать раздел</button>
+              <button class="button primary" type="submit">Сохранить раздел</button>
+              <a class="button" href="/admin/sections/">К списку разделов</a>
             </div>
           </form>
-          <table>
-            <thead>
-              <tr>
-                <th>Форум</th>
-                <th class="count">Тем</th>
-                <th class="count">Статус</th>
-                <th class="actions">Действия</th>
-              </tr>
-            </thead>
-            <tbody id="sectionRows"></tbody>
-          </table>
         </section>
 
         <section class="category admin-page" id="topics" data-admin-page="topics">
           <div class="category-title">Темы</div>
+          <div class="page-actions">
+            <a class="button primary" href="/admin/topics/new/">Создать тему</a>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Тема</th>
+                <th>Раздел</th>
+                <th class="count">Статус</th>
+                <th class="actions">Действия</th>
+              </tr>
+            </thead>
+            <tbody id="topicRows"></tbody>
+          </table>
+        </section>
+
+        <section class="category admin-page" id="topic-new" data-admin-page="topics-new">
+          <div class="category-title">Создать тему</div>
           <form class="editor" id="topicForm">
             <div class="field">
               <label for="topicTitle">Название темы</label>
@@ -180,27 +218,26 @@
             </div>
             <div class="field wide">
               <label for="topicBody">Первое сообщение</label>
+              <div class="editor-toolbar" aria-label="Редактор сообщения">
+                <button class="mini-button" type="button" data-editor="bold">B</button>
+                <button class="mini-button" type="button" data-editor="italic">I</button>
+                <button class="mini-button" type="button" data-editor="quote">Цитата</button>
+                <button class="mini-button" type="button" data-editor="link">Ссылка</button>
+                <button class="mini-button" type="button" data-editor="image">Картинка</button>
+                <button class="mini-button" type="button" data-editor="video">Видео</button>
+              </div>
               <textarea id="topicBody">Все забыли форумы, а мы вспомнили.</textarea>
             </div>
             <div class="form-actions">
               <button class="button primary" type="submit">Сохранить тему</button>
+              <button class="button" type="button" id="previewTopicPost">Предпросмотр</button>
               <button class="button" type="button" id="pinTopic">Закрепить</button>
               <button class="button danger" type="button" id="hideTopic">Скрыть</button>
+              <a class="button" href="/admin/topics/">К списку тем</a>
               <span id="saveStatus" aria-live="polite"></span>
             </div>
           </form>
-          <pre class="preview" id="topicPreview"></pre>
-          <table>
-            <thead>
-              <tr>
-                <th>Тема</th>
-                <th>Раздел</th>
-                <th class="count">Статус</th>
-                <th class="actions">Действия</th>
-              </tr>
-            </thead>
-            <tbody id="topicRows"></tbody>
-          </table>
+          <div class="preview post-preview" id="topicPreview"></div>
         </section>
 
         <section class="category admin-page" id="posts" data-admin-page="posts">
@@ -393,20 +430,25 @@
 
   <script>
     (() => {
-      const pages = new Set(["summary", "categories", "sections", "topics", "posts", "media", "users", "trash", "design", "export", "logs"]);
+      const pages = new Set(["summary", "categories", "categories-new", "sections", "sections-new", "topics", "topics-new", "posts", "media", "users", "trash", "design", "export", "logs"]);
       const pageFromPath = () => {
-        const page = location.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean)[0] || "summary";
+        const parts = location.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean);
+        const page = parts[1] === "new" ? `${parts[0]}-new` : parts[0] || "summary";
         return pages.has(page) ? page : "summary";
       };
-      const urlFor = (page) => page === "summary" ? "/admin/" : `/admin/${page}/`;
+      const urlFor = (page) => {
+        if (page.endsWith("-new")) return `/admin/${page.replace("-new", "")}/new/`;
+        return page === "summary" ? "/admin/" : `/admin/${page}/`;
+      };
       const apply = (page = pageFromPath()) => {
+        const routePage = page.endsWith("-new") ? page.replace("-new", "") : page;
         document.querySelectorAll("[data-admin-page]").forEach((section) => {
           const active = section.dataset.adminPage === page;
           section.hidden = !active;
           section.style.display = active ? "" : "none";
         });
         document.querySelectorAll("[data-admin-route]").forEach((link) => {
-          link.classList.toggle("active", link.dataset.adminRoute === page);
+          link.classList.toggle("active", link.dataset.adminRoute === routePage);
         });
       };
       document.addEventListener("DOMContentLoaded", () => {
@@ -415,7 +457,8 @@
           const link = event.target.closest("a[href^='/admin/']");
           if (!link || link.target) return;
           const url = new URL(link.href, location.origin);
-          const page = url.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean)[0] || "summary";
+          const parts = url.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean);
+          const page = parts[1] === "new" ? `${parts[0]}-new` : parts[0] || "summary";
           if (!pages.has(page)) return;
           event.preventDefault();
           history.pushState({}, "", urlFor(page));

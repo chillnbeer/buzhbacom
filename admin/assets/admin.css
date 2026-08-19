@@ -172,6 +172,14 @@ button{cursor:pointer}
   background:var(--warn);
 }
 
+.page-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:16px;
+  border-bottom:1px solid var(--border);
+}
+
 table{
   width:100%;
   border-collapse:collapse;
@@ -282,6 +290,20 @@ textarea{
 
 .form-actions{grid-column:1 / -1}
 
+.editor-toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:7px;
+  border:1px solid var(--border);
+  border-bottom:0;
+  background:#e2e7ec;
+}
+
+.editor-toolbar + textarea{
+  min-height:190px;
+}
+
 .preview{
   margin:0 16px 16px;
   padding:12px;
@@ -326,6 +348,13 @@ textarea{
   max-width:100%;
   margin:8px 0;
   border:1px solid var(--border);
+}
+
+.post-preview blockquote{
+  margin:8px 0;
+  padding:8px 12px;
+  border-left:3px solid var(--border-dark);
+  background:#f3f6f9;
 }
 
 .log{

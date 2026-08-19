@@ -105,9 +105,20 @@ function videoEmbed(url){
   return `<a href="${escapeHtml(value)}" target="_blank" rel="noopener">${escapeHtml(value)}</a>`;
 }
 
+function formatForumText(value){
+  return escapeHtml(value)
+    .replace(/\[b\]([\s\S]*?)\[\/b\]/gi, "<strong>$1</strong>")
+    .replace(/\[i\]([\s\S]*?)\[\/i\]/gi, "<em>$1</em>")
+    .replace(/\[quote\]([\s\S]*?)\[\/quote\]/gi, "<blockquote>$1</blockquote>")
+    .replace(/\[url=(https?:\/\/[^\]\s]+)\]([\s\S]*?)\[\/url\]/gi, '<a href="$1" target="_blank" rel="noopener">$2</a>')
+    .replace(/\[img\](https?:\/\/[^\]\s]+|\/[^\]\s]+)\[\/img\]/gi, '<img src="$1" alt="">')
+    .replace(/\[video\]([\s\S]*?)\[\/video\]/gi, (_, url) => videoEmbed(url))
+    .replace(/\n/g, "<br>");
+}
+
 function renderPostBody(post){
   return `
-    ${escapeHtml(post.body).replace(/\n/g, "<br>")}
+    ${formatForumText(post.body)}
     ${post.image ? `<img src="${escapeHtml(post.image)}" alt="">` : ""}
     ${post.video ? videoEmbed(post.video) : ""}
   `;

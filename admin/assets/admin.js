@@ -4,7 +4,10 @@ const storageKey = "buzhba-admin-v2";
 const tokenKey = "buzhba-admin-token";
 const apiStateUrl = "/api/forum/state";
 const $ = (selector) => document.querySelector(selector);
-const adminPages = new Set(["summary", "categories", "sections", "topics", "posts", "media", "users", "trash", "design", "export", "logs"]);
+const adminPages = new Set([
+  "summary", "categories", "categories-new", "sections", "sections-new", "topics", "topics-new",
+  "posts", "media", "users", "trash", "design", "export", "logs"
+]);
 
 const translitMap = {
   а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh", з: "z", и: "i", й: "y",
@@ -132,15 +135,18 @@ function topicUrl(topic){
 }
 
 function currentAdminPage(){
-  const page = location.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean)[0] || "summary";
+  const parts = location.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean);
+  const page = parts[1] === "new" ? `${parts[0]}-new` : parts[0] || "summary";
   return adminPages.has(page) ? page : "summary";
 }
 
 function adminPageUrl(page){
+  if (page.endsWith("-new")) return `/admin/${page.replace("-new", "")}/new/`;
   return page === "summary" ? "/admin/" : `/admin/${page}/`;
 }
 
 function setAdminPage(page = currentAdminPage()){
+  const routePage = page.endsWith("-new") ? page.replace("-new", "") : page;
   document.querySelectorAll("[data-admin-page]").forEach((section) => {
     const isCurrentPage = section.dataset.adminPage === page;
     section.hidden = !isCurrentPage;
@@ -149,12 +155,13 @@ function setAdminPage(page = currentAdminPage()){
   });
 
   document.querySelectorAll("[data-admin-route]").forEach((link) => {
-    link.classList.toggle("active", link.dataset.adminRoute === page);
+    link.classList.toggle("active", link.dataset.adminRoute === routePage);
   });
 
   const crumb = document.querySelector(".crumb");
   if (crumb) {
-    const label = document.querySelector(`[data-admin-route="${page}"]`)?.textContent || "Сводка";
+    const baseLabel = document.querySelector(`[data-admin-route="${routePage}"]`)?.textContent || "Сводка";
+    const label = page.endsWith("-new") ? `${baseLabel.toLowerCase()} » создание` : baseLabel.toLowerCase();
     crumb.textContent = `» группа бужба » администрирование » ${label.toLowerCase()}`;
   }
 }
@@ -164,15 +171,81 @@ function bindAdminRouter(){
     const link = event.target.closest("a[href^='/admin/']");
     if (!link || link.target) return;
     const url = new URL(link.href, location.origin);
-    const page = url.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean)[0] || "summary";
+    const parts = url.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean);
+    const page = parts[1] === "new" ? `${parts[0]}-new` : parts[0] || "summary";
     if (!adminPages.has(page)) return;
     event.preventDefault();
+    if (page.endsWith("-new")) resetCreateForm(page);
     history.pushState({}, "", adminPageUrl(page));
     setAdminPage(page);
     window.scrollTo({ top: 0, behavior: "auto" });
   });
 
   window.addEventListener("popstate", () => setAdminPage());
+}
+
+function goAdminPage(page){
+  history.pushState({}, "", adminPageUrl(page));
+  setAdminPage(page);
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function resetCreateForm(page){
+  if (page === "categories-new") {
+    delete $("#categoryForm").dataset.editing;
+    $("#categoryTitle").value = "новая категория";
+    $("#categorySlug").value = "new-category";
+    $("#categoryDesc").value = "";
+  }
+
+  if (page === "sections-new") {
+    delete $("#sectionForm").dataset.editing;
+    $("#sectionName").value = "новый раздел";
+    $("#sectionSlug").value = "new-section";
+    $("#sectionCategory").value = state.categories[0]?.id || "";
+    $("#sectionDescription").value = "";
+  }
+
+  if (page === "topics-new") {
+    delete $("#topicForm").dataset.editing;
+    $("#topicTitle").value = "новая тема";
+    $("#topicSlug").value = "new-topic";
+    $("#topicForum").value = state.sections[0]?.id || "";
+    $("#topicStatus").value = "обычная";
+    $("#topicAuthor").value = "buzhba";
+    $("#topicBody").value = "";
+    $("#saveStatus").textContent = "";
+    previewTopicPost();
+  }
+}
+
+function insertAround(textarea, before, after = ""){
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const selected = textarea.value.slice(start, end) || "";
+  textarea.setRangeText(`${before}${selected}${after}`, start, end, "select");
+  textarea.focus();
+}
+
+function insertEditorToken(action){
+  const textarea = $("#topicBody");
+  if (!textarea) return;
+  if (action === "bold") insertAround(textarea, "[b]", "[/b]");
+  if (action === "italic") insertAround(textarea, "[i]", "[/i]");
+  if (action === "quote") insertAround(textarea, "[quote]", "[/quote]");
+  if (action === "link") insertAround(textarea, "[url=https://example.com]", "[/url]");
+  if (action === "image") insertAround(textarea, "[img]", "[/img]");
+  if (action === "video") insertAround(textarea, "[video]", "[/video]");
+}
+
+function previewTopicPost(){
+  $("#topicPreview").innerHTML = postHtml({
+    author: $("#topicAuthor").value || "buzhba",
+    body: $("#topicBody").value,
+    image: "",
+    video: "",
+    createdAt: now()
+  });
 }
 
 function options(items, selected, label){
@@ -197,11 +270,22 @@ function videoEmbed(url){
   return `<a href="${escapeHtml(value)}" target="_blank" rel="noopener">${escapeHtml(value)}</a>`;
 }
 
+function formatForumText(value){
+  return escapeHtml(value)
+    .replace(/\[b\]([\s\S]*?)\[\/b\]/gi, "<strong>$1</strong>")
+    .replace(/\[i\]([\s\S]*?)\[\/i\]/gi, "<em>$1</em>")
+    .replace(/\[quote\]([\s\S]*?)\[\/quote\]/gi, "<blockquote>$1</blockquote>")
+    .replace(/\[url=(https?:\/\/[^\]\s]+)\]([\s\S]*?)\[\/url\]/gi, '<a href="$1" target="_blank" rel="noopener">$2</a>')
+    .replace(/\[img\](https?:\/\/[^\]\s]+|\/[^\]\s]+)\[\/img\]/gi, '<img src="$1" alt="">')
+    .replace(/\[video\]([\s\S]*?)\[\/video\]/gi, (_, url) => videoEmbed(url))
+    .replace(/\n/g, "<br>");
+}
+
 function postHtml(post){
   return `
     <div class="post-preview">
       <strong>${escapeHtml(post.author)}</strong> <span class="muted">${escapeHtml(post.createdAt || now())}</span>
-      <p>${escapeHtml(post.body).replace(/\n/g, "<br>")}</p>
+      <div>${formatForumText(post.body)}</div>
       ${post.image ? `<img src="${escapeHtml(post.image)}" alt="">` : ""}
       ${post.video ? videoEmbed(post.video) : ""}
     </div>
@@ -275,7 +359,13 @@ function renderTopicEditor(topic = state.topics[0]){
   $("#topicAuthor").value = topic.author;
   $("#topicBody").value = state.posts.find((post) => post.topicId === topic.id)?.body || "";
   $("#topicForm").dataset.editing = topic.id;
-  $("#topicPreview").textContent = JSON.stringify(topic, null, 2);
+  $("#topicPreview").innerHTML = postHtml({
+    author: topic.author,
+    body: $("#topicBody").value,
+    image: "",
+    video: "",
+    createdAt: topic.createdAt
+  });
 }
 
 function renderPosts(){
@@ -391,15 +481,21 @@ function scheduleRemoteSave(){
 }
 
 function render(){
+  const page = currentAdminPage();
   renderCategories();
   renderSections();
   renderTopics();
-  renderTopicEditor(state.topics.find((topic) => topic.id === $("#topicForm").dataset.editing) || state.topics[0]);
+  const editingTopic = state.topics.find((topic) => topic.id === $("#topicForm").dataset.editing);
+  if (editingTopic) renderTopicEditor(editingTopic);
+  else if (page !== "topics-new") renderTopicEditor(state.topics[0]);
   renderPosts();
   renderMedia();
   renderUsers();
   renderTrash();
   renderStats();
+  if (page.endsWith("-new") && !document.querySelector(`[data-admin-page="${page}"] form`)?.dataset.editing) {
+    resetCreateForm(page);
+  }
   setAdminPage();
 }
 
@@ -429,6 +525,7 @@ function handleCategoryAction(action, id){
     $("#categorySlug").value = normalizeSlug(item.slug || item.title);
     $("#categoryDesc").value = item.description;
     $("#categoryForm").dataset.editing = item.id;
+    goAdminPage("categories-new");
   }
   if (action === "toggle") item.status = item.status === "открыта" ? "закрыта" : "открыта";
   if (action === "delete") {
@@ -446,6 +543,7 @@ function handleSectionAction(action, id){
     $("#sectionCategory").value = item.categoryId;
     $("#sectionDescription").value = item.description;
     $("#sectionForm").dataset.editing = item.id;
+    goAdminPage("sections-new");
   }
   if (action === "up") item.order = Math.max(1, item.order - 1.5);
   if (action === "toggle") item.status = item.status === "открыт" ? "закрыт" : "открыт";
@@ -458,7 +556,10 @@ function handleSectionAction(action, id){
 function handleTopicAction(action, id){
   const item = state.topics.find((entry) => entry.id === id);
   if (!item) return;
-  if (action === "edit") renderTopicEditor(item);
+  if (action === "edit") {
+    renderTopicEditor(item);
+    goAdminPage("topics-new");
+  }
   if (action === "pin") item.status = "закреплена";
   if (action === "close") item.status = "закрыта";
   if (action === "delete") {
@@ -555,6 +656,7 @@ function bindForms(){
     delete event.currentTarget.dataset.editing;
     addLog("Категория сохранена");
     save();
+    goAdminPage("categories");
   });
 
   $("#sectionForm").addEventListener("submit", (event) => {
@@ -575,6 +677,7 @@ function bindForms(){
     delete event.currentTarget.dataset.editing;
     addLog("Раздел сохранен");
     save();
+    goAdminPage("sections");
   });
 
   $("#topicForm").addEventListener("submit", (event) => {
@@ -599,6 +702,7 @@ function bindForms(){
     $("#saveStatus").textContent = "сохранено локально";
     addLog("Тема сохранена");
     save();
+    goAdminPage("topics");
   });
 
   $("#postForm").addEventListener("submit", (event) => {
@@ -657,6 +761,16 @@ function bindForms(){
 
 function bindButtons(){
   document.addEventListener("click", handleCrudClick);
+
+  document.querySelectorAll("[data-editor]").forEach((button) => {
+    button.addEventListener("click", () => {
+      insertEditorToken(button.dataset.editor);
+      previewTopicPost();
+    });
+  });
+
+  $("#topicBody").addEventListener("input", previewTopicPost);
+  $("#previewTopicPost").addEventListener("click", previewTopicPost);
 
   $("#previewPost").addEventListener("click", () => {
     $("#postPreview").innerHTML = postHtml({ author: $("#postAuthor").value, body: $("#postBody").value, image: $("#postImage").value, video: $("#postVideo").value, createdAt: now() });
