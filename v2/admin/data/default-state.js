@@ -3,6 +3,7 @@ export const DEFAULT_STATE = {
     {
       id: "cat-buzhba",
       title: "бужба",
+      slug: "buzhba",
       description: "Основные разделы форума группы Бужба.",
       order: 1,
       status: "открыта"
@@ -13,6 +14,7 @@ export const DEFAULT_STATE = {
       id: "forum-photos",
       categoryId: "cat-buzhba",
       name: "фотографии",
+      slug: "photos",
       description: "портреты, концерты, картинки для афиш",
       order: 1,
       status: "открыт"
@@ -21,6 +23,7 @@ export const DEFAULT_STATE = {
       id: "forum-music",
       categoryId: "cat-buzhba",
       name: "музыка",
+      slug: "music",
       description: "альбомы, синглы, EP и ссылки",
       order: 2,
       status: "открыт"
@@ -29,6 +32,7 @@ export const DEFAULT_STATE = {
       id: "forum-video",
       categoryId: "cat-buzhba",
       name: "видео",
+      slug: "video",
       description: "клипы, лайвы и YouTube-следы",
       order: 3,
       status: "открыт"
@@ -39,6 +43,7 @@ export const DEFAULT_STATE = {
       id: "topic-site",
       forumId: "forum-music",
       title: "бужба - новый форумный сайт",
+      slug: "buzhba-new-forum-site",
       status: "закреплена",
       author: "buzhba",
       createdAt: "2026-08-19 11:14:32"
@@ -47,6 +52,7 @@ export const DEFAULT_STATE = {
       id: "topic-live",
       forumId: "forum-video",
       title: "бужба: Цех live x mmmesss",
+      slug: "buzhba-tseh-live-x-mmmesss",
       status: "обычная",
       author: "buzhba",
       createdAt: "2026-08-19 11:10:05"
@@ -55,6 +61,7 @@ export const DEFAULT_STATE = {
       id: "topic-photos",
       forumId: "forum-photos",
       title: "второй фотоальбом",
+      slug: "second-photo-album",
       status: "обычная",
       author: "buzhba",
       createdAt: "2021-07-22 09:33:25"

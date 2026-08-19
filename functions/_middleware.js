@@ -58,11 +58,24 @@ function isLegacyAdminRoute(pathname) {
   return pathname === "/v2/admin" || pathname.startsWith("/v2/admin/");
 }
 
+function isV2ForumRoute(pathname) {
+  if (pathname === "/v2" || pathname === "/v2/") return false;
+  if (!pathname.startsWith("/v2/")) return false;
+  if (pathname.startsWith("/v2/assets/") || pathname.startsWith("/v2/admin/")) return false;
+  return !/\.[^/]+$/.test(pathname);
+}
+
 export async function onRequest(context) {
   const url = new URL(context.request.url);
   if (isLegacyAdminRoute(url.pathname)) {
     return Response.redirect(`${url.origin}/admin/`, 301);
   }
+
+  if (isV2ForumRoute(url.pathname)) {
+    const request = new Request(new URL("/v2/", url.origin), context.request);
+    return context.next(request);
+  }
+
   if (!isAdminRoute(url.pathname)) return context.next();
 
   if (await isAdminRequest(context.request, context.env)) {

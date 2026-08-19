@@ -5,6 +5,12 @@ const tokenKey = "buzhba-admin-token";
 const apiStateUrl = "/api/forum/state";
 const $ = (selector) => document.querySelector(selector);
 
+const translitMap = {
+  а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh", з: "z", и: "i", й: "y",
+  к: "k", л: "l", м: "m", н: "n", о: "o", п: "p", р: "r", с: "s", т: "t", у: "u", ф: "f",
+  х: "h", ц: "ts", ч: "ch", ш: "sh", щ: "sch", ъ: "", ы: "y", ь: "", э: "e", ю: "yu", я: "ya"
+};
+
 let state = migrate(loadState());
 let remoteSaveTimer = null;
 
@@ -25,16 +31,32 @@ function migrate(data){
   return {
     ...fresh,
     ...data,
-    categories: Array.isArray(data.categories) ? data.categories : fresh.categories,
+    categories: Array.isArray(data.categories) ? data.categories.map((item, index) => ({
+      id: item.id || makeId("cat", item.title || "category"),
+      title: item.title || "категория",
+      slug: normalizeSlug(item.slug || item.title || item.id || `category-${index + 1}`),
+      description: item.description || "",
+      order: Number(item.order || index + 1),
+      status: item.status || "открыта"
+    })) : fresh.categories,
     sections: Array.isArray(data.sections) ? data.sections.map((item, index) => ({
       id: item.id || makeId("forum", item.name || "section"),
       categoryId: item.categoryId || "cat-buzhba",
       name: item.name || "раздел",
+      slug: normalizeSlug(item.slug || item.name || item.id || `section-${index + 1}`),
       description: item.description || "",
       order: Number(item.order || index + 1),
       status: item.status || "открыт"
     })) : fresh.sections,
-    topics: Array.isArray(data.topics) ? data.topics : fresh.topics,
+    topics: Array.isArray(data.topics) ? data.topics.map((item, index) => ({
+      id: item.id || makeId("topic", item.title || "topic"),
+      forumId: item.forumId || fresh.sections[0]?.id,
+      title: item.title || "тема",
+      slug: normalizeSlug(item.slug || item.title || item.id || `topic-${index + 1}`),
+      status: item.status || "обычная",
+      author: item.author || "buzhba",
+      createdAt: item.createdAt || now()
+    })) : fresh.topics,
     posts: Array.isArray(data.posts) ? data.posts : fresh.posts,
     media: Array.isArray(data.media) ? data.media : fresh.media,
     users: Array.isArray(data.users) ? data.users : fresh.users,
@@ -51,6 +73,14 @@ function save(){
 
 function makeId(prefix, text){
   return `${prefix}-${String(text).toLowerCase().replace(/[^a-zа-я0-9]+/gi, "-").replace(/^-|-$/g, "")}-${Date.now().toString(36)}`;
+}
+
+function normalizeSlug(value){
+  const latin = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[а-яё]/g, (char) => translitMap[char] || char);
+  return latin.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "page";
 }
 
 function now(){
@@ -84,6 +114,20 @@ function findForum(id){
 
 function findTopic(id){
   return state.topics.find((item) => item.id === id) || state.topics[0];
+}
+
+function findCategory(id){
+  return state.categories.find((item) => item.id === id) || state.categories[0];
+}
+
+function sectionUrl(section){
+  const category = findCategory(section?.categoryId);
+  return `/v2/${normalizeSlug(category?.slug || category?.title)}/${normalizeSlug(section?.slug || section?.name)}/`;
+}
+
+function topicUrl(topic){
+  const section = findForum(topic?.forumId);
+  return section ? `${sectionUrl(section)}${normalizeSlug(topic?.slug || topic?.title)}/` : "/v2/";
 }
 
 function options(items, selected, label){
@@ -125,7 +169,7 @@ function renderCategories(){
     const count = state.sections.filter((section) => section.categoryId === category.id).length;
     return `
       <tr>
-        <td><strong>${escapeHtml(category.title)}</strong><br><span class="muted">${escapeHtml(category.description)}</span></td>
+        <td><strong>${escapeHtml(category.title)}</strong><br><span class="muted">/${escapeHtml(normalizeSlug(category.slug || category.title))}/ · ${escapeHtml(category.description)}</span></td>
         <td class="count">${count}</td>
         <td class="actions">
           <button class="mini-button" data-kind="category" data-action="edit" data-id="${category.id}">править</button>
@@ -145,7 +189,7 @@ function renderSections(){
       const topicCount = state.topics.filter((topic) => topic.forumId === section.id).length;
       return `
         <tr>
-          <td><strong><a href="/v2/#${escapeHtml(section.name)}">${escapeHtml(section.name)}</a></strong><br><span class="muted">${escapeHtml(section.description)}</span></td>
+          <td><strong><a href="${sectionUrl(section)}" target="_blank" rel="noopener">${escapeHtml(section.name)}</a></strong><br><span class="muted">${escapeHtml(sectionUrl(section))} · ${escapeHtml(section.description)}</span></td>
           <td class="count">${topicCount}</td>
           <td class="count">${escapeHtml(section.status)}</td>
           <td class="actions">
@@ -164,7 +208,7 @@ function renderTopics(){
   $("#postTopic").innerHTML = options(state.topics, state.topics[0]?.id, (item) => item.title);
   $("#topicRows").innerHTML = state.topics.map((topic) => `
     <tr>
-      <td><strong>${escapeHtml(topic.title)}</strong><br><span class="muted">${escapeHtml(topic.author)} - ${escapeHtml(topic.createdAt)}</span></td>
+      <td><strong><a href="${topicUrl(topic)}" target="_blank" rel="noopener">${escapeHtml(topic.title)}</a></strong><br><span class="muted">${escapeHtml(topicUrl(topic))} · ${escapeHtml(topic.author)} - ${escapeHtml(topic.createdAt)}</span></td>
       <td>${escapeHtml(findForum(topic.forumId)?.name)}</td>
       <td class="count">${escapeHtml(topic.status)}</td>
       <td class="actions">
@@ -180,6 +224,7 @@ function renderTopics(){
 function renderTopicEditor(topic = state.topics[0]){
   if (!topic) return;
   $("#topicTitle").value = topic.title;
+  $("#topicSlug").value = normalizeSlug(topic.slug || topic.title);
   $("#topicForum").value = topic.forumId;
   $("#topicStatus").value = topic.status;
   $("#topicAuthor").value = topic.author;
@@ -326,6 +371,7 @@ function handleCrudClick(event){
   if (kind === "trash") handleTrashAction(action, id);
 
   addLog(`${kind}: ${action}`);
+  if (action === "edit") return;
   save();
 }
 
@@ -334,6 +380,7 @@ function handleCategoryAction(action, id){
   if (!item) return;
   if (action === "edit") {
     $("#categoryTitle").value = item.title;
+    $("#categorySlug").value = normalizeSlug(item.slug || item.title);
     $("#categoryDesc").value = item.description;
     $("#categoryForm").dataset.editing = item.id;
   }
@@ -348,10 +395,11 @@ function handleSectionAction(action, id){
   const item = state.sections.find((entry) => entry.id === id);
   if (!item) return;
   if (action === "edit") {
-    const title = prompt("Название раздела", item.name);
-    if (title) item.name = title;
-    const description = prompt("Описание раздела", item.description);
-    if (description !== null) item.description = description;
+    $("#sectionName").value = item.name;
+    $("#sectionSlug").value = normalizeSlug(item.slug || item.name);
+    $("#sectionCategory").value = item.categoryId;
+    $("#sectionDescription").value = item.description;
+    $("#sectionForm").dataset.editing = item.id;
   }
   if (action === "up") item.order = Math.max(1, item.order - 1.5);
   if (action === "toggle") item.status = item.status === "открыт" ? "закрыт" : "открыт";
@@ -432,6 +480,18 @@ function handleTrashAction(action, id){
 }
 
 function bindForms(){
+  $("#categoryTitle").addEventListener("input", () => {
+    if (!$("#categoryForm").dataset.editing) $("#categorySlug").value = normalizeSlug($("#categoryTitle").value);
+  });
+
+  $("#sectionName").addEventListener("input", () => {
+    if (!$("#sectionForm").dataset.editing) $("#sectionSlug").value = normalizeSlug($("#sectionName").value);
+  });
+
+  $("#topicTitle").addEventListener("input", () => {
+    if (!$("#topicForm").dataset.editing) $("#topicSlug").value = normalizeSlug($("#topicTitle").value);
+  });
+
   $("#categoryForm").addEventListener("submit", (event) => {
     event.preventDefault();
     const editing = event.currentTarget.dataset.editing;
@@ -439,8 +499,9 @@ function bindForms(){
     const payload = {
       id: editing || makeId("cat", $("#categoryTitle").value),
       title: $("#categoryTitle").value,
+      slug: normalizeSlug($("#categorySlug").value || $("#categoryTitle").value),
       description: $("#categoryDesc").value,
-      order: state.categories.length + 1,
+      order: existing?.order || state.categories.length + 1,
       status: existing?.status || "открыта"
     };
     if (existing) Object.assign(existing, payload);
@@ -452,15 +513,21 @@ function bindForms(){
 
   $("#sectionForm").addEventListener("submit", (event) => {
     event.preventDefault();
-    state.sections.push({
-      id: makeId("forum", $("#sectionName").value),
+    const editing = event.currentTarget.dataset.editing;
+    const existing = state.sections.find((entry) => entry.id === editing);
+    const payload = {
+      id: editing || makeId("forum", $("#sectionName").value),
       categoryId: $("#sectionCategory").value,
       name: $("#sectionName").value,
+      slug: normalizeSlug($("#sectionSlug").value || $("#sectionName").value),
       description: $("#sectionDescription").value,
-      order: state.sections.length + 1,
-      status: "открыт"
-    });
-    addLog("Раздел создан");
+      order: existing?.order || state.sections.length + 1,
+      status: existing?.status || "открыт"
+    };
+    if (existing) Object.assign(existing, payload);
+    else state.sections.push(payload);
+    delete event.currentTarget.dataset.editing;
+    addLog("Раздел сохранен");
     save();
   });
 
@@ -472,6 +539,7 @@ function bindForms(){
       id: editing || makeId("topic", $("#topicTitle").value),
       forumId: $("#topicForum").value,
       title: $("#topicTitle").value,
+      slug: normalizeSlug($("#topicSlug").value || $("#topicTitle").value),
       status: $("#topicStatus").value,
       author: $("#topicAuthor").value,
       createdAt: existing?.createdAt || now()

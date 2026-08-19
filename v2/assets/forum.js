@@ -2,14 +2,44 @@ const forumRows = document.getElementById("forumRows");
 const forumContent = document.getElementById("forumContent");
 let forumState = null;
 
+const translitMap = {
+  а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh", з: "z", и: "i", й: "y",
+  к: "k", л: "l", м: "m", н: "n", о: "o", п: "p", р: "r", с: "s", т: "t", у: "u", ф: "f",
+  х: "h", ц: "ts", ч: "ch", ш: "sh", щ: "sch", ъ: "", ы: "y", ь: "", э: "e", ю: "yu", я: "ya"
+};
+
 function escapeHtml(value){
   return String(value || "").replace(/[&<>"']/g, (char) => ({
     "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
   }[char]));
 }
 
+function slugify(value){
+  const latin = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[а-яё]/g, (char) => translitMap[char] || char);
+  return latin.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "page";
+}
+
 function visible(items, hiddenStatus){
   return (items || []).filter((item) => item.status !== hiddenStatus);
+}
+
+function sectionSlug(section){
+  return slugify(section?.slug || section?.name || section?.id);
+}
+
+function categorySlug(category){
+  return slugify(category?.slug || category?.title || category?.id);
+}
+
+function topicSlug(topic){
+  return slugify(topic?.slug || topic?.title || topic?.id);
+}
+
+function categoryById(id){
+  return forumState.categories.find((category) => category.id === id) || forumState.categories[0];
 }
 
 function forumById(id){
@@ -18,6 +48,20 @@ function forumById(id){
 
 function topicById(id){
   return forumState.topics.find((topic) => topic.id === id);
+}
+
+function categoryForSection(section){
+  return categoryById(section?.categoryId);
+}
+
+function sectionUrl(section){
+  const category = categoryForSection(section);
+  return `/v2/${categorySlug(category)}/${sectionSlug(section)}/`;
+}
+
+function topicUrl(topic){
+  const section = forumById(topic?.forumId);
+  return section ? `${sectionUrl(section)}${topicSlug(topic)}/` : "/v2/";
 }
 
 function topicsForForum(forumId){
@@ -33,7 +77,7 @@ function postsForTopic(topicId){
 
 function postsForForum(forumId){
   const ids = topicsForForum(forumId).map((topic) => topic.id);
-  return forumState.posts.filter((post) => ids.includes(post.topicId));
+  return visible(forumState.posts, "скрыто").filter((post) => ids.includes(post.topicId));
 }
 
 function latestPostForForum(forumId){
@@ -83,7 +127,7 @@ function renderForumIndex(){
       return `
         <tr>
           <td class="forum-cell">
-            <a class="forum-link" href="#forum/${section.id}"><span class="forum-icon"></span><span>${escapeHtml(section.name)}</span></a>
+            <a class="forum-link" href="${sectionUrl(section)}"><span class="forum-icon"></span><span>${escapeHtml(section.name)}</span></a>
             <p class="forum-desc">${escapeHtml(section.description)}</p>
           </td>
           <td class="count">${topics.length}</td>
@@ -92,7 +136,7 @@ function renderForumIndex(){
             ${latest ? `
               <div class="last-post">
                 <span class="avatar" aria-hidden="true"></span>
-                <span><a href="#topic/${latestTopic?.id || ""}">${escapeHtml(latestTopic?.title || "последнее сообщение")}</a><br>${escapeHtml(latest.createdAt)} - ${escapeHtml(latest.author)}</span>
+                <span><a href="${latestTopic ? topicUrl(latestTopic) : sectionUrl(section)}">${escapeHtml(latestTopic?.title || "последнее сообщение")}</a><br>${escapeHtml(latest.createdAt)} - ${escapeHtml(latest.author)}</span>
               </div>
             ` : `<span class="muted">Нет сообщений</span>`}
           </td>
@@ -112,7 +156,7 @@ function renderAllForums(){
 function renderForumSection(section){
   const topics = topicsForForum(section.id);
   return `
-    <section class="category" id="${escapeHtml(section.id)}">
+    <section class="category" id="${escapeHtml(sectionSlug(section))}">
       <div class="category-title">${escapeHtml(section.name)}</div>
       <table aria-label="${escapeHtml(section.name)}">
         <thead>
@@ -137,7 +181,7 @@ function renderTopicRow(topic){
   return `
     <tr>
       <td class="forum-cell">
-        <a class="topic-table-title" href="#topic/${topic.id}"><span class="forum-icon"></span><span>${escapeHtml(topic.title)}</span></a>
+        <a class="topic-table-title" href="${topicUrl(topic)}"><span class="forum-icon"></span><span>${escapeHtml(topic.title)}</span></a>
         <p class="topic-meta">Автор: ${escapeHtml(topic.author)} · ${escapeHtml(topic.status)} · ${escapeHtml(topic.createdAt)}</p>
       </td>
       <td class="count">${Math.max(0, posts.length - 1)}</td>
@@ -157,7 +201,7 @@ function renderTopicPage(topic){
         <tbody>
           <tr>
             <td class="forum-cell">
-              <a class="forum-link" href="#forum/${escapeHtml(forum?.id || "")}"><span class="forum-icon"></span><span>${escapeHtml(topic.title)}</span></a>
+              <a class="forum-link" href="${forum ? sectionUrl(forum) : "/v2/"}"><span class="forum-icon"></span><span>${escapeHtml(topic.title)}</span></a>
               <p class="forum-desc">Автор: ${escapeHtml(topic.author)} · ${escapeHtml(topic.status)} · ${escapeHtml(topic.createdAt)}</p>
             </td>
           </tr>
@@ -180,31 +224,72 @@ function renderTopicPage(topic){
   `;
 }
 
+function renderNotFound(){
+  forumContent.innerHTML = `
+    <section class="category">
+      <div class="category-title">Не найдено</div>
+      <table>
+        <tbody>
+          <tr><td class="forum-cell"><a class="forum-link" href="/v2/"><span class="forum-icon"></span><span>вернуться на форум</span></a></td></tr>
+        </tbody>
+      </table>
+    </section>
+  `;
+}
+
+function currentPathSegments(){
+  return decodeURI(location.pathname)
+    .replace(/^\/v2\/?/, "")
+    .split("/")
+    .filter(Boolean);
+}
+
 function route(){
   if (!forumState || !forumContent) return;
-  const hash = decodeURIComponent(location.hash.replace(/^#/, ""));
-  const [type, id] = hash.split("/");
+  const [catSlug, secSlug, topSlug] = currentPathSegments();
 
-  if (type === "forum" && id) {
-    const section = forumById(id);
-    if (section) {
-      forumContent.innerHTML = renderForumSection(section);
-      return;
-    }
+  if (!catSlug) {
+    renderAllForums();
+    return;
   }
 
-  if (type === "topic" && id) {
-    const topic = topicById(id);
-    if (topic) {
-      renderTopicPage(topic);
-      return;
-    }
+  const section = visible(forumState.sections, "скрыт")
+    .find((item) => sectionSlug(item) === slugify(secSlug) && categorySlug(categoryForSection(item)) === slugify(catSlug));
+
+  if (section && !topSlug) {
+    forumContent.innerHTML = renderForumSection(section);
+    return;
   }
 
-  renderAllForums();
+  const topic = section
+    ? topicsForForum(section.id).find((item) => topicSlug(item) === slugify(topSlug))
+    : null;
+
+  if (topic) {
+    renderTopicPage(topic);
+    return;
+  }
+
+  renderNotFound();
+}
+
+function bindInternalLinks(){
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a[href]");
+    if (!link || !forumState) return;
+    const url = new URL(link.href, location.origin);
+    if (url.origin !== location.origin || !url.pathname.startsWith("/v2/") || url.pathname.startsWith("/v2/assets/")) return;
+    event.preventDefault();
+    history.pushState({}, "", url.pathname);
+    route();
+    window.scrollTo({ top: 0, behavior: "auto" });
+  });
+
+  window.addEventListener("popstate", route);
 }
 
 async function init(){
+  bindInternalLinks();
   try {
     const response = await fetch("/api/forum/state", { cache: "no-store" });
     const payload = await response.json();
@@ -218,5 +303,4 @@ async function init(){
   }
 }
 
-window.addEventListener("hashchange", route);
 init();
