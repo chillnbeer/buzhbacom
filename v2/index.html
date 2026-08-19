@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>группа бужба - форум</title>
+  <meta name="description" content="Бужба в виде старого форума: фотографии, музыка, видео, объявления и последние сообщения.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://buzhba.com/v2/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="группа бужба - форум">
+  <meta property="og:description" content="Ретро-форум группы Бужба. Все забыли форумы, а мы вспомнили.">
+  <meta property="og:image" content="https://buzhba.com/images/og-cover.jpg">
+  <meta property="og:url" content="https://buzhba.com/v2/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/images/f/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/images/f/favicon.svg">
+  <link rel="shortcut icon" href="/images/f/favicon.ico">
+  <style>
+    :root{
+      --blue:#6f96c4;
+      --blue-dark:#4d79ac;
+      --blue-light:#88acd0;
+      --border:#bdc7d0;
+      --border-dark:#9fb0c0;
+      --cell:#eaf0f7;
+      --link:#0058a9;
+      --text:#333;
+      --page:#fff;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:var(--page);
+      color:var(--text);
+      font:16px/1.35 Arial, Helvetica, sans-serif;
+    }
+
+    a{
+      color:var(--link);
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+
+    a:hover{color:#003f7d}
+
+    .page{
+      width:calc(100% - 70px);
+      margin:20px auto 34px;
+      min-width:960px;
+    }
+
+    .forum-title{
+      height:132px;
+      display:flex;
+      align-items:center;
+      padding:0 24px;
+      border:1px solid var(--border);
+      background:#dfe4e8;
+      font-size:28px;
+      letter-spacing:.2px;
+    }
+
+    .main-nav{
+      display:flex;
+      gap:0;
+      padding:7px 18px 8px;
+      border:1px solid var(--border-dark);
+      border-top:0;
+      background:linear-gradient(#7fa3ca, #5e88b8 50%, #547dad);
+      box-shadow:inset 0 1px rgba(255,255,255,.35), inset 0 -2px rgba(45,83,124,.28);
+      font-size:19px;
+      font-weight:bold;
+    }
+
+    .main-nav a{
+      color:#fff;
+      text-decoration:none;
+      margin-right:28px;
+      text-shadow:0 1px rgba(0,0,0,.18);
+      white-space:nowrap;
+    }
+
+    .sub-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0;
+      margin-top:6px;
+      padding:12px 20px;
+      border:1px solid var(--border);
+      background:#fff;
+      box-shadow:0 4px 0 #e5e5e5;
+      font-size:18px;
+    }
+
+    .sub-nav a{
+      display:inline-block;
+      padding:0 16px;
+      border-left:1px solid #edf0f2;
+      white-space:nowrap;
+    }
+
+    .sub-nav a:first-child{
+      padding-left:0;
+      border-left:0;
+    }
+
+    .hello{
+      margin-top:28px;
+      padding:17px 24px 19px;
+      border:1px solid var(--border);
+      background:#fff;
+      box-shadow:0 3px 0 #e9e9e9;
+      font-size:18px;
+    }
+
+    .hello-row{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      border-bottom:1px solid #edf0f2;
+      padding-bottom:16px;
+    }
+
+    .hello strong{font-weight:700}
+
+    .crumb{
+      margin-top:22px;
+      font-size:24px;
+      font-weight:700;
+    }
+
+    .ads{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0,1fr));
+      gap:8px;
+      margin:26px 0 24px;
+    }
+
+    .ad{
+      min-height:198px;
+      border:1px solid #e0e4eb;
+      background:#f4f6fb;
+      overflow:hidden;
+    }
+
+    .ad img{
+      width:100%;
+      height:114px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .ad-body{
+      padding:10px 12px 12px;
+      font-size:13px;
+    }
+
+    .ad-domain{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:6px;
+      color:#20242a;
+      font-size:18px;
+    }
+
+    .ad-dot{
+      width:22px;
+      height:22px;
+      flex:0 0 auto;
+      border-radius:50%;
+      background:#4b86e8;
+    }
+
+    .ad small{
+      color:#666;
+      letter-spacing:1px;
+    }
+
+    .ad-title{
+      min-height:58px;
+      margin:8px 0 10px;
+      font-size:20px;
+      line-height:1.18;
+      font-weight:700;
+    }
+
+    .ad-button{
+      display:block;
+      padding:9px 10px;
+      border-radius:4px;
+      background:#3d7df0;
+      color:#fff;
+      text-align:center;
+      font-size:17px;
+      text-decoration:none;
+    }
+
+    .ad-hidden{
+      display:grid;
+      place-items:center;
+      padding:24px;
+      color:#9aa3b5;
+      text-align:center;
+      font-size:18px;
+      line-height:1.45;
+    }
+
+    .ad-hidden strong{
+      display:block;
+      margin-bottom:14px;
+      color:#000;
+    }
+
+    .category{
+      margin-top:22px;
+      border:1px solid var(--border-dark);
+      box-shadow:0 4px 0 #e3e3e3;
+    }
+
+    .category-title{
+      padding:6px 18px 7px;
+      border-bottom:1px solid var(--border-dark);
+      background:linear-gradient(#7fa3ca, #5e88b8 50%, #547dad);
+      color:#fff;
+      font-size:21px;
+      text-shadow:0 1px rgba(0,0,0,.18);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fff;
+    }
+
+    th,
+    td{
+      border:1px solid var(--border);
+      padding:14px 18px;
+      vertical-align:middle;
+    }
+
+    th{
+      background:#e2e7ec;
+      text-align:left;
+      font-size:18px;
+      font-weight:400;
+    }
+
+    th.count,
+    td.count{
+      width:11%;
+      text-align:center;
+    }
+
+    th.last,
+    td.last{
+      width:30%;
+    }
+
+    td.count{
+      background:var(--cell);
+      font-size:22px;
+    }
+
+    .forum-cell{
+      height:92px;
+    }
+
+    .forum-link{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      font-size:24px;
+      font-weight:700;
+    }
+
+    .forum-icon{
+      width:22px;
+      height:22px;
+      flex:0 0 auto;
+      border:2px solid #b5c0cb;
+      background:#5f85b7;
+      box-shadow:inset 0 0 0 2px #dbe5ef;
+    }
+
+    .forum-desc{
+      margin:8px 0 0 36px;
+      color:#6a6a6a;
+      font-size:14px;
+    }
+
+    .last-post{
+      display:grid;
+      grid-template-columns:52px 1fr;
+      gap:14px;
+      align-items:center;
+      font-size:17px;
+      line-height:1.22;
+    }
+
+    .avatar{
+      position:relative;
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 50% 37%, #777 0 15%, transparent 16%),
+        radial-gradient(ellipse at 50% 76%, #777 0 30%, transparent 31%),
+        #e1e5ea;
+    }
+
+    .avatar::after{
+      content:"";
+      position:absolute;
+      right:1px;
+      top:5px;
+      width:11px;
+      height:11px;
+      border-radius:50%;
+      background:#bde1b4;
+    }
+
+    .topic-list{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:18px;
+      padding:18px;
+      background:#fff;
+    }
+
+    .topic{
+      border:1px solid var(--border);
+      background:#f9fbfd;
+    }
+
+    .topic img{
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      display:block;
+      border-bottom:1px solid var(--border);
+    }
+
+    .topic-body{
+      padding:13px 14px 14px;
+    }
+
+    .topic h3{
+      margin:0 0 8px;
+      font-size:18px;
+      line-height:1.2;
+    }
+
+    .topic p{
+      margin:0;
+      color:#666;
+      font-size:14px;
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+      background:#fff;
+    }
+
+    .stats-grid div{
+      padding:18px 22px;
+      border:1px solid var(--border);
+      border-top:0;
+      font-size:18px;
+    }
+
+    .footer{
+      margin-top:20px;
+      padding:18px 0 0;
+      color:#777;
+      font-size:13px;
+      text-align:center;
+    }
+
+    @media (max-width:1100px){
+      .page{
+        width:calc(100% - 24px);
+        min-width:0;
+      }
+
+      .ads{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+
+      .ads .ad-hidden{
+        display:none;
+      }
+
+      .topic-list{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:760px){
+      body{
+        font-size:15px;
+      }
+
+      .forum-title{
+        height:96px;
+        font-size:26px;
+      }
+
+      .main-nav,
+      .sub-nav{
+        overflow:auto;
+        flex-wrap:nowrap;
+      }
+
+      .main-nav a{
+        margin-right:22px;
+      }
+
+      .hello-row{
+        display:block;
+      }
+
+      .hello-row a{
+        display:block;
+        margin-top:14px;
+      }
+
+      .ads{
+        grid-template-columns:1fr;
+      }
+
+      table,
+      thead,
+      tbody,
+      tr,
+      th,
+      td{
+        display:block;
+        width:100% !important;
+      }
+
+      thead{
+        display:none;
+      }
+
+      tr{
+        border-bottom:2px solid var(--border);
+      }
+
+      td{
+        border-left:0;
+        border-right:0;
+      }
+
+      td.count{
+        display:inline-block;
+        width:50% !important;
+      }
+
+      td.last{
+        width:100% !important;
+      }
+
+      .stats-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="forum-title">группа бужба</header>
+
+    <nav class="main-nav" aria-label="Главное меню">
+      <a href="/">Форум</a>
+      <a href="#members">Участники</a>
+      <a href="#search">Поиск</a>
+      <a href="#profile">Профиль</a>
+      <a href="#messages">Сообщения</a>
+      <a href="#admin">Администрирование</a>
+      <a href="/">Выход</a>
+    </nav>
+
+    <nav class="sub-nav" aria-label="Пользовательские ссылки">
+      <a href="#active">Активные темы</a>
+      <a href="#answers">Ответы</a>
+      <a href="#empty">Темы без ответов</a>
+      <a href="#my">Мои сообщения</a>
+      <a href="#uploads">Мои загрузки</a>
+      <a href="#subscribe">Подписка</a>
+      <a href="#read">Всё прочитано</a>
+    </nav>
+
+    <section class="hello">
+      <div class="hello-row">
+        <div>Привет, <strong>buzhba</strong>. &nbsp; Ваш последний визит: <strong>2025-02-01 13:51:08</strong>.</div>
+        <a href="https://band.link/ppDGl" target="_blank" rel="noopener">улучшить аккаунт</a>
+      </div>
+      <div class="crumb">» группа бужба</div>
+    </section>
+
+    <section class="ads" aria-label="Реклама">
+      <article class="ad">
+        <img src="/images/albums/kogda-ty-nu-ochen-krutoy.jpg" alt="">
+        <div class="ad-body">
+          <div class="ad-domain"><span class="ad-dot"></span>buzhba.com <small>РЕКЛАМА</small></div>
+          <div class="ad-title">Альбом для сервисов Apple и не только</div>
+          <a class="ad-button" href="https://band.link/ppDGl" target="_blank" rel="noopener">Узнать больше</a>
+        </div>
+      </article>
+      <article class="ad">
+        <img src="/images/press/20260226-225522-880e.jpg" alt="">
+        <div class="ad-body">
+          <div class="ad-domain"><span class="ad-dot" style="background:#62ad46"></span>цех-live.ru <small>РЕКЛАМА</small></div>
+          <div class="ad-title">Получите лучший вариант от фитнес-арпеджиатора!</div>
+          <a class="ad-button" href="https://band.link/livebuzhba" target="_blank" rel="noopener">Узнать больше</a>
+        </div>
+      </article>
+      <article class="ad">
+        <img src="/images/albums/bobubip.jpg" alt="">
+        <div class="ad-body">
+          <div class="ad-domain"><span class="ad-dot" style="background:#dc4291"></span>bobubip.me <small>РЕКЛАМА</small></div>
+          <div class="ad-title">Специальные цены в квартале «Бобубип»</div>
+          <a class="ad-button" href="https://band.link/bobubip" target="_blank" rel="noopener">Узнать больше</a>
+        </div>
+      </article>
+      <article class="ad">
+        <img src="/images/press/20260226-225447-6487.jpg" alt="">
+        <div class="ad-body">
+          <div class="ad-domain"><span class="ad-dot" style="background:#f20b2f"></span>altay.buzhba.ru <small>РЕКЛАМА</small></div>
+          <div class="ad-title">Узнайте о новом проекте Бужники на Алтае</div>
+          <a class="ad-button" href="/images/press/20260226-225447-6487.jpg" target="_blank" rel="noopener">Узнать больше</a>
+        </div>
+      </article>
+      <article class="ad ad-hidden">
+        <div>
+          <strong>Объявление скрыто</strong>
+          Мы используем ваши ответы, чтобы подбирать для вас подходящую рекламу
+        </div>
+      </article>
+    </section>
+
+    <section class="category">
+      <div class="category-title">бужба</div>
+      <table aria-label="Разделы форума">
+        <thead>
+          <tr>
+            <th>Форум</th>
+            <th class="count">Тем</th>
+            <th class="count">Сообщений</th>
+            <th class="last">Последнее сообщение</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="forum-cell">
+              <a class="forum-link" href="#photos"><span class="forum-icon"></span><span>фотографии</span></a>
+              <p class="forum-desc">портреты, концертные фото, картинки для афиш и публикаций</p>
+            </td>
+            <td class="count">2</td>
+            <td class="count">2</td>
+            <td class="last">
+              <div class="last-post">
+                <span class="avatar" aria-hidden="true"></span>
+                <span><a href="#photos">второй фотоальбом</a><br>2021-07-22 09:33:25 - buzhba</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="forum-cell">
+              <a class="forum-link" href="#music"><span class="forum-icon"></span><span>музыка</span></a>
+              <p class="forum-desc">альбомы, синглы, EP и ссылки на стриминги</p>
+            </td>
+            <td class="count">2</td>
+            <td class="count">2</td>
+            <td class="last">
+              <div class="last-post">
+                <span class="avatar" aria-hidden="true"></span>
+                <span><a href="#music">бужба — еще чуть-чуть веселых риффов</a><br>2022-02-10 14:19:54 - buzhba</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="forum-cell">
+              <a class="forum-link" href="#video"><span class="forum-icon"></span><span>видео</span></a>
+              <p class="forum-desc">клипы, лайвы, странные ролики и YouTube-следы</p>
+            </td>
+            <td class="count">5</td>
+            <td class="count">5</td>
+            <td class="last">
+              <div class="last-post">
+                <span class="avatar" aria-hidden="true"></span>
+                <span><a href="#video">бужба — веселые риффы</a><br>2022-02-10 14:11:20 - buzhba</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="category" id="music">
+      <div class="category-title">музыка</div>
+      <div class="topic-list">
+        <article class="topic">
+          <img src="/images/albums/kogda-ty-nu-ochen-krutoy.jpg" alt="Обложка альбома Когда ты ну очень крутой">
+          <div class="topic-body">
+            <h3><a href="https://band.link/ppDGl" target="_blank" rel="noopener">Когда ты ну очень крутой</a></h3>
+            <p>Тема начата пользователем buzhba. Последний ответ: слушать целиком.</p>
+          </div>
+        </article>
+        <article class="topic">
+          <img src="/images/albums/ceh-live-mmmesss.jpg" alt="Обложка EP Цех live x mmmesss">
+          <div class="topic-body">
+            <h3><a href="https://band.link/livebuzhba" target="_blank" rel="noopener">Цех live x mmmesss</a></h3>
+            <p>Живой релиз, закрепленный в разделе музыка.</p>
+          </div>
+        </article>
+        <article class="topic">
+          <img src="/images/albums/bobubip.jpg" alt="Обложка альбома Бобубип">
+          <div class="topic-body">
+            <h3><a href="https://band.link/bobubip" target="_blank" rel="noopener">Бобубип</a></h3>
+            <p>Архивная тема с большим количеством просмотров.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="category" id="video">
+      <div class="category-title">видео</div>
+      <table aria-label="Видео">
+        <thead>
+          <tr>
+            <th>Тема</th>
+            <th class="count">Ответов</th>
+            <th class="count">Просмотров</th>
+            <th class="last">Последнее сообщение</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="forum-cell"><a class="forum-link" href="https://www.youtube.com/watch?v=O241obUNimI" target="_blank" rel="noopener"><span class="forum-icon"></span><span>бужба: Цех live x mmmesss</span></a></td>
+            <td class="count">1</td>
+            <td class="count">241</td>
+            <td class="last">Сегодня 11:10:05 - buzhba</td>
+          </tr>
+          <tr>
+            <td class="forum-cell"><a class="forum-link" href="https://www.youtube.com/watch?v=4dHvzRTAiqI" target="_blank" rel="noopener"><span class="forum-icon"></span><span>Поп-танцор</span></a></td>
+            <td class="count">0</td>
+            <td class="count">118</td>
+            <td class="last">Вчера 20:26:18 - buzhba</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="category" id="photos">
+      <div class="category-title">фотографии</div>
+      <div class="topic-list">
+        <article class="topic">
+          <img src="/images/press/20260226-225554-a31b.jpg" alt="Жорж Корнилов Бужба">
+          <div class="topic-body">
+            <h3><a href="/images/press/20260226-225554-a31b.jpg" target="_blank">портрет на черном фоне</a></h3>
+            <p>Автор: buzhba. Сообщений: 1.</p>
+          </div>
+        </article>
+        <article class="topic">
+          <img src="/images/press/20260226-225522-880e.jpg" alt="Бужба с гитарой на сцене">
+          <div class="topic-body">
+            <h3><a href="/images/press/20260226-225522-880e.jpg" target="_blank">с акустической гитарой на сцене</a></h3>
+            <p>Автор: buzhba. Сообщений: 1.</p>
+          </div>
+        </article>
+        <article class="topic">
+          <img src="/images/press/20260227-093917-da2d.jpg" alt="Жорж Корнилов на берегу моря">
+          <div class="topic-body">
+            <h3><a href="/images/press/20260227-093917-da2d.jpg" target="_blank">на берегу моря</a></h3>
+            <p>Автор: buzhba. Сообщений: 1.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-title">Статистика форума</div>
+      <div class="stats-grid">
+        <div>Всего тем: <strong>9</strong></div>
+        <div>Зарегистрированных пользователей: <strong>3</strong></div>
+        <div>Всего сообщений: <strong>9</strong></div>
+        <div>Последним зарегистрировался: <strong>bobubip</strong></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Powered by старый интернет. Сделано для buzhba.com/v2.
+    </footer>
+  </div>
+</body>
+</html>
