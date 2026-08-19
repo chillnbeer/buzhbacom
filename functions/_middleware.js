@@ -41,11 +41,19 @@ function loginPage(url) {
   });
 }
 
+function isAdminRoute(pathname) {
+  return pathname === "/v2/admin" || pathname.startsWith("/v2/admin/");
+}
+
 export async function onRequest(context) {
+  const url = new URL(context.request.url);
+  if (!isAdminRoute(url.pathname)) return context.next();
+
   const token = context.env.ADMIN_TOKEN;
   const cookie = context.request.headers.get("cookie") || "";
   if (token && cookie.includes(`buzhba_admin=${encodeURIComponent(token)}`)) {
     return context.next();
   }
-  return loginPage(new URL(context.request.url));
+
+  return loginPage(url);
 }
