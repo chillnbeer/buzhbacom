@@ -1,5 +1,6 @@
 const forumRows = document.getElementById("forumRows");
 const forumContent = document.getElementById("forumContent");
+const forumIndexBlock = forumRows?.closest(".category");
 let forumState = null;
 
 const translitMap = {
@@ -249,9 +250,12 @@ function route(){
   const [catSlug, secSlug, topSlug] = currentPathSegments();
 
   if (!catSlug) {
+    if (forumIndexBlock) forumIndexBlock.hidden = false;
     renderAllForums();
     return;
   }
+
+  if (forumIndexBlock) forumIndexBlock.hidden = true;
 
   const section = visible(forumState.sections, "скрыт")
     .find((item) => sectionSlug(item) === slugify(secSlug) && categorySlug(categoryForSection(item)) === slugify(catSlug));
