@@ -11,11 +11,11 @@ export async function onRequestPost({ request, env }) {
   const form = await request.formData();
 
   if (!validCredentials(form, env)) {
-    return redirect("/v2/admin/?error=1");
+    return redirect("/admin/?error=1");
   }
 
   const session = await adminSessionValue(env);
-  return redirect("/v2/admin/", {
+  return redirect("/admin/", {
     "set-cookie": `${adminCookieName}=${session}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=604800`
   });
 }

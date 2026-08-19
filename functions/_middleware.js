@@ -51,11 +51,18 @@ function loginPage(url) {
 }
 
 function isAdminRoute(pathname) {
+  return pathname === "/admin" || pathname.startsWith("/admin/");
+}
+
+function isLegacyAdminRoute(pathname) {
   return pathname === "/v2/admin" || pathname.startsWith("/v2/admin/");
 }
 
 export async function onRequest(context) {
   const url = new URL(context.request.url);
+  if (isLegacyAdminRoute(url.pathname)) {
+    return Response.redirect(`${url.origin}/admin/`, 301);
+  }
   if (!isAdminRoute(url.pathname)) return context.next();
 
   if (await isAdminRequest(context.request, context.env)) {

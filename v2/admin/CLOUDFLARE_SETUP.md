@@ -75,7 +75,7 @@ GitHub остается источником файлов, Cloudflare отдае
 
 ## 7. Подключить админку
 
-1. Открой `https://buzhba.com/v2/admin/`.
+1. Открой `https://buzhba.com/admin/`.
 2. Пролистай до блока `Cloudflare D1 / Экспорт`.
 3. Введи `ADMIN_LOGIN` и `ADMIN_PASSWORD`.
 4. После входа нажми `Загрузить из D1`.
