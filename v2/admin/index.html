@@ -43,7 +43,7 @@
     <section class="hello">
       <div class="hello-row">
         <div>Привет, <strong>admin</strong>. &nbsp; Ваш последний визит: <strong>2026-08-19 11:14:32</strong>.</div>
-        <a href="/v2/">вернуться на форум</a>
+        <span><a href="/v2/">вернуться на форум</a> · <a href="/api/forum/logout">выход</a></span>
       </div>
       <div class="crumb">» группа бужба » администрирование</div>
     </section>
@@ -352,7 +352,7 @@
 
         <section class="category" id="export">
           <div class="category-title">Cloudflare D1 / Экспорт</div>
-          <p class="notice">Админка читает публичные данные из D1. Для записи нужен ADMIN_TOKEN из Cloudflare Pages settings.</p>
+          <p class="notice">Админка читает публичные данные из D1. Запись идет через серверную админ-сессию; поле токена ниже можно использовать как запасной ручной режим.</p>
           <div class="editor">
             <div class="field">
               <label for="adminToken">ADMIN_TOKEN</label>

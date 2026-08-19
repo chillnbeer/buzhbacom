@@ -361,6 +361,60 @@
       font-size:12px;
     }
 
+    .topic-table-title{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+      font-size:16px;
+    }
+
+    .topic-meta,
+    .muted{
+      color:#666;
+      font-size:12px;
+    }
+
+    .post{
+      border:1px solid var(--border);
+      background:#fff;
+    }
+
+    .post + .post{
+      border-top:0;
+    }
+
+    .post-head{
+      display:grid;
+      grid-template-columns:170px 1fr;
+      border-bottom:1px solid var(--border);
+      background:#e2e7ec;
+    }
+
+    .post-author,
+    .post-date{
+      padding:10px 14px;
+    }
+
+    .post-author{
+      border-right:1px solid var(--border);
+      font-weight:700;
+    }
+
+    .post-body{
+      padding:14px;
+      min-height:86px;
+      white-space:pre-wrap;
+    }
+
+    .post-body img,
+    .post-body iframe{
+      display:block;
+      max-width:100%;
+      margin:10px 0;
+      border:1px solid var(--border);
+    }
+
     .stats-grid{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -604,6 +658,7 @@
       </table>
     </section>
 
+    <div id="forumContent">
     <section class="category" id="music">
       <div class="category-title">музыка</div>
       <div class="topic-list">
@@ -685,6 +740,7 @@
         </article>
       </div>
     </section>
+    </div>
 
     <section class="category">
       <div class="category-title">Статистика форума</div>

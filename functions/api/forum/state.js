@@ -17,7 +17,8 @@ function authorized(request, env) {
   if (!token) return false;
   const header = request.headers.get("authorization") || "";
   const xToken = request.headers.get("x-admin-token") || "";
-  return header === `Bearer ${token}` || xToken === token;
+  const cookie = request.headers.get("cookie") || "";
+  return header === `Bearer ${token}` || xToken === token || cookie.includes(`buzhba_admin=${encodeURIComponent(token)}`);
 }
 
 async function ensureDefaultState(db) {

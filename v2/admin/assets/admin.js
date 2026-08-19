@@ -275,18 +275,15 @@ async function loadRemoteState(){
 async function publishRemoteState(){
   const status = $("#apiStatus");
   const token = localStorage.getItem(tokenKey);
-  if (!token) {
-    status.textContent = "Нет ADMIN_TOKEN. Вставь токен и нажми «Сохранить токен».";
-    return;
-  }
 
   try {
     status.textContent = "Публикую в D1...";
     const response = await fetch(apiStateUrl, {
       method: "PUT",
+      credentials: "same-origin",
       headers: {
         "content-type": "application/json",
-        "authorization": `Bearer ${token}`
+        ...(token ? { "authorization": `Bearer ${token}` } : {})
       },
       body: JSON.stringify({ state })
     });
@@ -299,7 +296,6 @@ async function publishRemoteState(){
 }
 
 function scheduleRemoteSave(){
-  if (!localStorage.getItem(tokenKey)) return;
   clearTimeout(remoteSaveTimer);
   remoteSaveTimer = setTimeout(publishRemoteState, 900);
 }
