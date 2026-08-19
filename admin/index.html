@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="/images/f/favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/svg+xml" href="/images/f/favicon.svg">
   <link rel="shortcut icon" href="/images/f/favicon.ico">
-  <link rel="stylesheet" href="/admin/assets/admin.css">
+  <link rel="stylesheet" href="/admin/assets/admin.css?v=admin-pages-2">
 </head>
 <body>
   <div class="page">
@@ -391,6 +391,42 @@
     <footer class="footer">Powered by старый интернет. Панель управления buzhba.com/v2.</footer>
   </div>
 
-  <script type="module" src="/admin/assets/admin.js"></script>
+  <script>
+    (() => {
+      const pages = new Set(["summary", "categories", "sections", "topics", "posts", "media", "users", "trash", "design", "export", "logs"]);
+      const pageFromPath = () => {
+        const page = location.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean)[0] || "summary";
+        return pages.has(page) ? page : "summary";
+      };
+      const urlFor = (page) => page === "summary" ? "/admin/" : `/admin/${page}/`;
+      const apply = (page = pageFromPath()) => {
+        document.querySelectorAll("[data-admin-page]").forEach((section) => {
+          const active = section.dataset.adminPage === page;
+          section.hidden = !active;
+          section.style.display = active ? "" : "none";
+        });
+        document.querySelectorAll("[data-admin-route]").forEach((link) => {
+          link.classList.toggle("active", link.dataset.adminRoute === page);
+        });
+      };
+      document.addEventListener("DOMContentLoaded", () => {
+        apply();
+        document.addEventListener("click", (event) => {
+          const link = event.target.closest("a[href^='/admin/']");
+          if (!link || link.target) return;
+          const url = new URL(link.href, location.origin);
+          const page = url.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean)[0] || "summary";
+          if (!pages.has(page)) return;
+          event.preventDefault();
+          history.pushState({}, "", urlFor(page));
+          apply(page);
+          window.scrollTo(0, 0);
+        });
+      });
+      window.addEventListener("popstate", () => apply());
+      window.buzhbaApplyAdminPage = apply;
+    })();
+  </script>
+  <script type="module" src="/admin/assets/admin.js?v=admin-pages-2"></script>
 </body>
 </html>

@@ -69,7 +69,13 @@ function isAdminPageRoute(pathname) {
   if (pathname === "/admin" || pathname === "/admin/") return false;
   if (!pathname.startsWith("/admin/")) return false;
   if (pathname.startsWith("/admin/assets/")) return false;
+  if (pathname.startsWith("/admin/data/")) return false;
   return !/\.[^/]+$/.test(pathname);
+}
+
+function adminNestedAssetPath(pathname) {
+  const match = pathname.match(/^\/admin\/[^/]+\/(assets|data)\/(.+)$/);
+  return match ? `/admin/${match[1]}/${match[2]}` : "";
 }
 
 export async function onRequest(context) {
@@ -86,6 +92,11 @@ export async function onRequest(context) {
   if (!isAdminRoute(url.pathname)) return context.next();
 
   if (await isAdminRequest(context.request, context.env)) {
+    const canonicalAsset = adminNestedAssetPath(url.pathname);
+    if (canonicalAsset) {
+      return Response.redirect(`${url.origin}${canonicalAsset}${url.search}`, 302);
+    }
+
     if (isAdminPageRoute(url.pathname)) {
       const request = new Request(new URL("/admin/", url.origin), context.request);
       return context.next(request);
