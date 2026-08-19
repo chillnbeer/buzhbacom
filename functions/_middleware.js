@@ -1,3 +1,5 @@
+import { isAdminRequest } from "./_auth.js";
+
 function loginPage(url) {
   const failed = url.searchParams.get("error") === "1";
   return new Response(`<!doctype html>
@@ -25,9 +27,16 @@ function loginPage(url) {
     <div class="title">группа бужба</div>
     <div class="bar">Вход администратора</div>
     <form method="post" action="/api/forum/login">
-      ${failed ? '<p class="err">Неверный ADMIN_TOKEN</p>' : ''}
-      <label for="token">ADMIN_TOKEN</label>
-      <input id="token" name="token" type="password" autocomplete="current-password" autofocus>
+      ${failed ? '<p class="err">Неверный логин или пароль</p>' : ''}
+      <label for="login">Логин</label>
+      <input id="login" name="login" type="text" autocomplete="username" autofocus>
+      <label for="password">Пароль</label>
+      <input id="password" name="password" type="password" autocomplete="current-password">
+      <details>
+        <summary>Войти старым ADMIN_TOKEN</summary>
+        <label for="token">ADMIN_TOKEN</label>
+        <input id="token" name="token" type="password" autocomplete="off">
+      </details>
       <button type="submit">Войти</button>
       <p><a href="/v2/">вернуться на форум</a></p>
     </form>
@@ -49,9 +58,7 @@ export async function onRequest(context) {
   const url = new URL(context.request.url);
   if (!isAdminRoute(url.pathname)) return context.next();
 
-  const token = context.env.ADMIN_TOKEN;
-  const cookie = context.request.headers.get("cookie") || "";
-  if (token && cookie.includes(`buzhba_admin=${encodeURIComponent(token)}`)) {
+  if (await isAdminRequest(context.request, context.env)) {
     return context.next();
   }
 

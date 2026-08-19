@@ -1,4 +1,5 @@
 import { DEFAULT_STATE } from "../../../v2/admin/data/default-state.js";
+import { isAdminRequest } from "../../_auth.js";
 
 const jsonHeaders = {
   "content-type": "application/json; charset=utf-8",
@@ -12,13 +13,11 @@ function json(data, init = {}) {
   });
 }
 
-function authorized(request, env) {
+async function authorized(request, env) {
   const token = env.ADMIN_TOKEN;
-  if (!token) return false;
   const header = request.headers.get("authorization") || "";
   const xToken = request.headers.get("x-admin-token") || "";
-  const cookie = request.headers.get("cookie") || "";
-  return header === `Bearer ${token}` || xToken === token || cookie.includes(`buzhba_admin=${encodeURIComponent(token)}`);
+  return (token && (header === `Bearer ${token}` || xToken === token)) || await isAdminRequest(request, env);
 }
 
 async function ensureDefaultState(db) {
@@ -53,7 +52,7 @@ export async function onRequestGet({ env }) {
 
 export async function onRequestPut({ request, env }) {
   if (!env.DB) return json({ ok: false, error: "D1 binding DB is missing" }, { status: 500 });
-  if (!authorized(request, env)) return json({ ok: false, error: "Unauthorized" }, { status: 401 });
+  if (!await authorized(request, env)) return json({ ok: false, error: "Unauthorized" }, { status: 401 });
 
   const body = await request.json();
   const state = body?.state;

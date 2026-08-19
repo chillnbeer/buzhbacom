@@ -1,4 +1,4 @@
-const cookieName = "buzhba_admin";
+import { adminCookieName, adminSessionValue, validCredentials } from "../../_auth.js";
 
 function redirect(location, headers = {}) {
   return new Response(null, {
@@ -9,13 +9,13 @@ function redirect(location, headers = {}) {
 
 export async function onRequestPost({ request, env }) {
   const form = await request.formData();
-  const token = String(form.get("token") || "");
 
-  if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+  if (!validCredentials(form, env)) {
     return redirect("/v2/admin/?error=1");
   }
 
+  const session = await adminSessionValue(env);
   return redirect("/v2/admin/", {
-    "set-cookie": `${cookieName}=${encodeURIComponent(env.ADMIN_TOKEN)}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=604800`
+    "set-cookie": `${adminCookieName}=${session}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=604800`
   });
 }
