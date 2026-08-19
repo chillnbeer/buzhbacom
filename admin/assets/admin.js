@@ -142,7 +142,10 @@ function adminPageUrl(page){
 
 function setAdminPage(page = currentAdminPage()){
   document.querySelectorAll("[data-admin-page]").forEach((section) => {
-    section.hidden = section.dataset.adminPage !== page;
+    const isCurrentPage = section.dataset.adminPage === page;
+    section.hidden = !isCurrentPage;
+    section.classList.toggle("is-active", isCurrentPage);
+    section.style.display = isCurrentPage ? "" : "none";
   });
 
   document.querySelectorAll("[data-admin-route]").forEach((link) => {
@@ -397,6 +400,7 @@ function render(){
   renderUsers();
   renderTrash();
   renderStats();
+  setAdminPage();
 }
 
 function handleCrudClick(event){
