@@ -8,366 +8,7 @@
   <link rel="icon" type="image/png" href="/images/f/favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/svg+xml" href="/images/f/favicon.svg">
   <link rel="shortcut icon" href="/images/f/favicon.ico">
-  <style>
-    :root{
-      --blue:#6f96c4;
-      --blue-dark:#4d79ac;
-      --border:#bdc7d0;
-      --border-dark:#9fb0c0;
-      --cell:#eaf0f7;
-      --link:#0058a9;
-      --text:#333;
-      --warn:#fff4c9;
-      --ok:#e5f5e8;
-    }
-
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      background:#fff;
-      color:var(--text);
-      font:12px/1.35 Arial, Helvetica, sans-serif;
-    }
-
-    a{
-      color:var(--link);
-      text-decoration:underline;
-      text-underline-offset:2px;
-    }
-
-    button,
-    input,
-    textarea,
-    select{
-      font:inherit;
-    }
-
-    button{
-      cursor:pointer;
-    }
-
-    .page{
-      width:calc(100% - 70px);
-      min-width:980px;
-      margin:20px auto 34px;
-    }
-
-    .forum-title{
-      height:112px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px;
-      padding:0 24px;
-      border:1px solid var(--border);
-      background:#dfe4e8;
-      font-size:20px;
-    }
-
-    .forum-title small{
-      font-size:11px;
-      color:#555;
-    }
-
-    .main-nav{
-      display:flex;
-      padding:7px 18px 8px;
-      border:1px solid var(--border-dark);
-      border-top:0;
-      background:linear-gradient(#7fa3ca, #5e88b8 50%, #547dad);
-      box-shadow:inset 0 1px rgba(255,255,255,.35), inset 0 -2px rgba(45,83,124,.28);
-      font-size:13px;
-      font-weight:bold;
-    }
-
-    .main-nav a{
-      margin-right:28px;
-      color:#fff;
-      text-decoration:none;
-      text-shadow:0 1px rgba(0,0,0,.18);
-      white-space:nowrap;
-    }
-
-    .sub-nav{
-      display:flex;
-      flex-wrap:wrap;
-      margin-top:6px;
-      padding:12px 20px;
-      border:1px solid var(--border);
-      background:#fff;
-      box-shadow:0 4px 0 #e5e5e5;
-      font-size:12px;
-    }
-
-    .sub-nav a{
-      display:inline-block;
-      padding:0 16px;
-      border-left:1px solid #edf0f2;
-    }
-
-    .sub-nav a:first-child{
-      padding-left:0;
-      border-left:0;
-    }
-
-    .hello{
-      margin-top:28px;
-      padding:17px 24px 19px;
-      border:1px solid var(--border);
-      background:#fff;
-      box-shadow:0 3px 0 #e9e9e9;
-      font-size:12px;
-    }
-
-    .hello-row{
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      border-bottom:1px solid #edf0f2;
-      padding-bottom:16px;
-    }
-
-    .crumb{
-      margin-top:22px;
-      font-size:16px;
-      font-weight:700;
-    }
-
-    .layout{
-      display:grid;
-      grid-template-columns:260px minmax(0,1fr);
-      gap:18px;
-      margin-top:26px;
-    }
-
-    .category{
-      border:1px solid var(--border-dark);
-      box-shadow:0 4px 0 #e3e3e3;
-      background:#fff;
-    }
-
-    .category + .category{
-      margin-top:20px;
-    }
-
-    .category-title{
-      padding:6px 18px 7px;
-      border-bottom:1px solid var(--border-dark);
-      background:linear-gradient(#7fa3ca, #5e88b8 50%, #547dad);
-      color:#fff;
-      font-size:15px;
-      text-shadow:0 1px rgba(0,0,0,.18);
-    }
-
-    .side-menu{
-      margin:0;
-      padding:0;
-      list-style:none;
-      background:#fff;
-    }
-
-    .side-menu a{
-      display:block;
-      padding:12px 14px;
-      border-bottom:1px solid var(--border);
-      font-weight:bold;
-    }
-
-    .side-menu a.active{
-      background:var(--cell);
-      color:#003f7d;
-    }
-
-    .notice{
-      margin:0;
-      padding:14px 18px;
-      border-bottom:1px solid var(--border);
-      background:var(--warn);
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      background:#fff;
-    }
-
-    th,
-    td{
-      border:1px solid var(--border);
-      padding:12px 14px;
-      vertical-align:middle;
-    }
-
-    th{
-      background:#e2e7ec;
-      text-align:left;
-      font-size:12px;
-      font-weight:400;
-    }
-
-    td.count{
-      width:110px;
-      text-align:center;
-      background:var(--cell);
-      font-size:13px;
-    }
-
-    .actions{
-      width:250px;
-      white-space:nowrap;
-    }
-
-    .mini-button{
-      display:inline-block;
-      min-height:30px;
-      margin:2px 3px 2px 0;
-      padding:4px 10px;
-      border:1px solid #8c9db0;
-      border-radius:0;
-      background:linear-gradient(#fff, #dfe8f2);
-      color:#123d68;
-      text-decoration:none;
-    }
-
-    .mini-button.danger{
-      background:linear-gradient(#fff, #f0dede);
-      color:#8b1d1d;
-    }
-
-    .editor{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-      padding:18px;
-    }
-
-    .field{
-      display:grid;
-      gap:6px;
-    }
-
-    .field.wide{
-      grid-column:1 / -1;
-    }
-
-    label{
-      font-weight:bold;
-    }
-
-    input,
-    textarea,
-    select{
-      width:100%;
-      min-height:36px;
-      padding:7px 8px;
-      border:1px solid #9fb0c0;
-      background:#fff;
-      color:#222;
-    }
-
-    textarea{
-      min-height:108px;
-      resize:vertical;
-    }
-
-    .form-actions{
-      grid-column:1 / -1;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
-    }
-
-    .button{
-      min-height:38px;
-      padding:7px 14px;
-      border:1px solid #6c829b;
-      background:linear-gradient(#ffffff, #d7e3f0);
-      color:#123d68;
-      font-weight:bold;
-    }
-
-    .button.primary{
-      background:linear-gradient(#7fa3ca, #547dad);
-      color:#fff;
-      text-shadow:0 1px rgba(0,0,0,.18);
-    }
-
-    .button.danger{
-      background:linear-gradient(#fff, #efd6d6);
-      color:#8b1d1d;
-    }
-
-    .preview{
-      margin:0 18px 18px;
-      padding:13px 14px;
-      border:1px solid var(--border);
-      background:var(--ok);
-      white-space:pre-wrap;
-      font-family:"Courier New", monospace;
-      font-size:11px;
-    }
-
-    .stats-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
-    }
-
-    .stat{
-      padding:16px 18px;
-      border:1px solid var(--border);
-      border-top:0;
-      background:#fff;
-      font-size:12px;
-    }
-
-    .stat strong{
-      display:block;
-      margin-top:3px;
-      font-size:18px;
-    }
-
-    .log{
-      margin:0;
-      padding:16px 18px 18px;
-      list-style:none;
-    }
-
-    .log li{
-      padding:8px 0;
-      border-bottom:1px solid #edf0f2;
-    }
-
-    .footer{
-      margin-top:22px;
-      color:#777;
-      font-size:11px;
-      text-align:center;
-    }
-
-    @media (max-width:1100px){
-      .page{
-        width:calc(100% - 24px);
-        min-width:0;
-      }
-
-      .layout{
-        grid-template-columns:1fr;
-      }
-
-      .editor,
-      .stats-grid{
-        grid-template-columns:1fr;
-      }
-
-      .main-nav,
-      .sub-nav{
-        overflow:auto;
-        flex-wrap:nowrap;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./assets/admin.css">
 </head>
 <body>
   <div class="page">
@@ -387,12 +28,15 @@
     </nav>
 
     <nav class="sub-nav" aria-label="Админские ссылки">
+      <a href="#categories">Категории</a>
       <a href="#sections">Разделы</a>
       <a href="#topics">Темы</a>
-      <a href="#ads" hidden>Реклама</a>
+      <a href="#posts">Сообщения</a>
+      <a href="#media">Медиа</a>
       <a href="#design">Дизайн</a>
-      <a href="#backup">Резервная копия</a>
-      <a href="#ban">Бан-лист</a>
+      <a href="#users">Пользователи</a>
+      <a href="#trash">Корзина</a>
+      <a href="#export">Экспорт</a>
       <a href="#logs">Логи</a>
     </nav>
 
@@ -410,9 +54,13 @@
           <div class="category-title">Меню администратора</div>
           <ul class="side-menu">
             <li><a class="active" href="#summary">Сводка</a></li>
-            <li><a href="#sections">Управление форумами</a></li>
-            <li><a href="#topics">Темы и сообщения</a></li>
-            <li hidden><a href="#ads">Рекламный блок</a></li>
+            <li><a href="#categories">Категории</a></li>
+            <li><a href="#sections">Разделы</a></li>
+            <li><a href="#topics">Темы</a></li>
+            <li><a href="#posts">Сообщения</a></li>
+            <li><a href="#media">Картинки и видео</a></li>
+            <li><a href="#users">Пользователи</a></li>
+            <li><a href="#trash">Корзина</a></li>
             <li><a href="#design">Настройки дизайна</a></li>
             <li><a href="#export">Экспорт данных</a></li>
           </ul>
@@ -429,16 +77,61 @@
         <section class="category" id="summary">
           <div class="category-title">Статистика</div>
           <div class="stats-grid">
-            <div class="stat">Разделов<strong>3</strong></div>
-            <div class="stat">Тем<strong id="topicCount">9</strong></div>
-            <div class="stat">Сообщений<strong>9</strong></div>
-            <div class="stat">Пользователей<strong>3</strong></div>
+            <div class="stat">Категорий<strong id="categoryCount">0</strong></div>
+            <div class="stat">Разделов<strong id="sectionCount">0</strong></div>
+            <div class="stat">Тем<strong id="topicCount">0</strong></div>
+            <div class="stat">Сообщений<strong id="postCount">0</strong></div>
+            <div class="stat">Пользователей<strong id="userCount">0</strong></div>
+          </div>
+        </section>
+
+        <section class="category" id="categories">
+          <div class="category-title">Категории</div>
+          <div class="split">
+            <form class="field" id="categoryForm">
+              <label for="categoryTitle">Название категории</label>
+              <input id="categoryTitle" value="бужба">
+              <label for="categoryDesc">Описание</label>
+              <textarea id="categoryDesc">Основные разделы форума группы Бужба.</textarea>
+              <div class="button-row">
+                <button class="button primary" type="submit">Сохранить категорию</button>
+                <button class="button" type="button" id="resetData">Сбросить демо-данные</button>
+              </div>
+            </form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Категория</th>
+                  <th class="count">Разделов</th>
+                  <th class="actions">Действия</th>
+                </tr>
+              </thead>
+              <tbody id="categoryRows"></tbody>
+            </table>
           </div>
         </section>
 
         <section class="category" id="sections">
-          <div class="category-title">Управление форумами</div>
-          <p class="notice">Это прототип админки. Кнопки меняют состояние в браузере и сохраняют черновик локально, без публикации в GitHub.</p>
+          <div class="category-title">Разделы</div>
+          <form class="editor" id="sectionForm">
+            <div class="field">
+              <label for="sectionName">Название раздела</label>
+              <input id="sectionName" value="новый раздел">
+            </div>
+            <div class="field">
+              <label for="sectionCategory">Категория</label>
+              <select id="sectionCategory">
+                <option value="cat-buzhba">бужба</option>
+              </select>
+            </div>
+            <div class="field wide">
+              <label for="sectionDescription">Описание</label>
+              <textarea id="sectionDescription">Описание нового раздела.</textarea>
+            </div>
+            <div class="form-actions">
+              <button class="button primary" type="submit">Создать раздел</button>
+            </div>
+          </form>
           <table>
             <thead>
               <tr>
@@ -453,23 +146,19 @@
         </section>
 
         <section class="category" id="topics">
-          <div class="category-title">Редактор темы</div>
+          <div class="category-title">Темы</div>
           <form class="editor" id="topicForm">
             <div class="field">
               <label for="topicTitle">Название темы</label>
-              <input id="topicTitle" name="title" value="бужба — новый форумный сайт">
+              <input id="topicTitle" value="бужба - новый форумный сайт">
             </div>
             <div class="field">
               <label for="topicForum">Раздел</label>
-              <select id="topicForum" name="forum">
-                <option>музыка</option>
-                <option>фотографии</option>
-                <option>видео</option>
-              </select>
+              <select id="topicForum"></select>
             </div>
             <div class="field">
               <label for="topicStatus">Статус</label>
-              <select id="topicStatus" name="status">
+              <select id="topicStatus">
                 <option>обычная</option>
                 <option>закреплена</option>
                 <option>закрыта</option>
@@ -478,11 +167,11 @@
             </div>
             <div class="field">
               <label for="topicAuthor">Автор</label>
-              <input id="topicAuthor" name="author" value="buzhba">
+              <input id="topicAuthor" value="buzhba">
             </div>
             <div class="field wide">
-              <label for="topicBody">Сообщение</label>
-              <textarea id="topicBody" name="body">Все забыли форумы, а мы вспомнили. Тут будет сайт группы Бужба в виде старого форума.</textarea>
+              <label for="topicBody">Первое сообщение</label>
+              <textarea id="topicBody">Все забыли форумы, а мы вспомнили.</textarea>
             </div>
             <div class="form-actions">
               <button class="button primary" type="submit">Сохранить тему</button>
@@ -492,39 +181,146 @@
             </div>
           </form>
           <pre class="preview" id="topicPreview"></pre>
-        </section>
-
-        <section class="category" id="ads" hidden>
-          <div class="category-title">Рекламный блок</div>
           <table>
             <thead>
               <tr>
-                <th>Позиция</th>
-                <th>Текст</th>
-                <th class="count">Показ</th>
+                <th>Тема</th>
+                <th>Раздел</th>
+                <th class="count">Статус</th>
                 <th class="actions">Действия</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="topicRows"></tbody>
+          </table>
+        </section>
+
+        <section class="category" id="posts">
+          <div class="category-title">Сообщения</div>
+          <form class="editor" id="postForm">
+            <div class="field">
+              <label for="postTopic">Тема</label>
+              <select id="postTopic"></select>
+            </div>
+            <div class="field">
+              <label for="postAuthor">Автор</label>
+              <input id="postAuthor" value="buzhba">
+            </div>
+            <div class="field wide">
+              <label for="postBody">Текст сообщения</label>
+              <textarea id="postBody">Новый пост на форуме. Можно добавить текст, картинку и видео.</textarea>
+            </div>
+            <div class="field">
+              <label for="postImage">Картинка URL</label>
+              <input id="postImage" placeholder="/images/press/img1.jpeg">
+            </div>
+            <div class="field">
+              <label for="postVideo">Видео URL или embed</label>
+              <input id="postVideo" placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+            <div class="form-actions">
+              <button class="button primary" type="submit">Сохранить сообщение</button>
+              <button class="button" type="button" id="previewPost">Предпросмотр</button>
+            </div>
+          </form>
+          <div class="preview" id="postPreview"></div>
+          <table>
+            <thead>
               <tr>
-                <td>1</td>
-                <td>Альбом для сервисов Apple и не только</td>
-                <td class="count">да</td>
-                <td class="actions"><button class="mini-button">изменить</button><button class="mini-button danger">скрыть</button></td>
+                <th>Сообщение</th>
+                <th>Тема</th>
+                <th class="count">Автор</th>
+                <th class="actions">Действия</th>
               </tr>
+            </thead>
+            <tbody id="postRows"></tbody>
+          </table>
+        </section>
+
+        <section class="category" id="media">
+          <div class="category-title">Медиа-библиотека</div>
+          <form class="editor" id="mediaForm">
+            <div class="field">
+              <label for="mediaType">Тип</label>
+              <select id="mediaType">
+                <option value="image">картинка</option>
+                <option value="video">видео</option>
+                <option value="file">файл</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="mediaUrl">URL</label>
+              <input id="mediaUrl" value="/images/press/20260226-225554-a31b.jpg">
+            </div>
+            <div class="field">
+              <label for="mediaTitle">Название</label>
+              <input id="mediaTitle" value="портрет на черном фоне">
+            </div>
+            <div class="field">
+              <label for="mediaAlt">Alt / подпись</label>
+              <input id="mediaAlt" value="Жорж Корнилов Бужба">
+            </div>
+            <div class="form-actions">
+              <button class="button primary" type="submit">Сохранить медиа</button>
+              <button class="button" type="button" id="insertMediaToPost">Вставить первое медиа в сообщение</button>
+            </div>
+          </form>
+          <table>
+            <thead>
               <tr>
-                <td>2</td>
-                <td>Получите лучший вариант от фитнес-арпеджиатора!</td>
-                <td class="count">да</td>
-                <td class="actions"><button class="mini-button">изменить</button><button class="mini-button danger">скрыть</button></td>
+                <th>Медиа</th>
+                <th class="count">Тип</th>
+                <th>URL</th>
+                <th class="actions">Действия</th>
               </tr>
+            </thead>
+            <tbody id="mediaRows"></tbody>
+          </table>
+        </section>
+
+        <section class="category" id="users">
+          <div class="category-title">Пользователи и права</div>
+          <form class="editor" id="userForm">
+            <div class="field">
+              <label for="userName">Имя</label>
+              <input id="userName" value="bobubip">
+            </div>
+            <div class="field">
+              <label for="userRole">Роль</label>
+              <select id="userRole">
+                <option>участник</option>
+                <option>модератор</option>
+                <option>администратор</option>
+                <option>забанен</option>
+              </select>
+            </div>
+            <div class="form-actions">
+              <button class="button primary" type="submit">Добавить пользователя</button>
+            </div>
+          </form>
+          <table>
+            <thead>
               <tr>
-                <td>5</td>
-                <td>Объявление скрыто</td>
-                <td class="count">нет</td>
-                <td class="actions"><button class="mini-button">показать</button><button class="mini-button">изменить</button></td>
+                <th>Пользователь</th>
+                <th class="count">Роль</th>
+                <th class="count">Статус</th>
+                <th class="actions">Действия</th>
               </tr>
-            </tbody>
+            </thead>
+            <tbody id="userRows"></tbody>
+          </table>
+        </section>
+
+        <section class="category" id="trash">
+          <div class="category-title">Корзина</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Объект</th>
+                <th class="count">Тип</th>
+                <th class="actions">Действия</th>
+              </tr>
+            </thead>
+            <tbody id="trashRows"></tbody>
           </table>
         </section>
 
@@ -556,7 +352,12 @@
 
         <section class="category" id="export">
           <div class="category-title">Экспорт данных</div>
-          <p class="notice">Для настоящей публикации следующим шагом можно подключить GitHub Actions, Cloudflare Worker или простую JSON-админку с паролем.</p>
+          <p class="notice">Сейчас это локальная CMS на localStorage. JSON ниже можно будет подключить к настоящей публикации через GitHub API, GitHub Actions или Cloudflare Worker.</p>
+          <div class="editor">
+            <div class="form-actions">
+              <button class="button primary" type="button" id="downloadJson">Скачать JSON</button>
+            </div>
+          </div>
           <pre class="preview" id="exportPreview"></pre>
         </section>
 
@@ -570,136 +371,6 @@
     <footer class="footer">Powered by старый интернет. Панель управления buzhba.com/v2.</footer>
   </div>
 
-  <script>
-    const defaults = {
-      sections: [
-        { name: "фотографии", topics: 2, status: "открыт" },
-        { name: "музыка", topics: 2, status: "открыт" },
-        { name: "видео", topics: 5, status: "открыт" }
-      ],
-      topic: {
-        title: "бужба — новый форумный сайт",
-        forum: "музыка",
-        status: "обычная",
-        author: "buzhba",
-        body: "Все забыли форумы, а мы вспомнили. Тут будет сайт группы Бужба в виде старого форума."
-      },
-      forumMode: "открыт",
-      logs: ["Создана панель администратора", "Форум v2 опубликован"]
-    };
-
-    const storageKey = "buzhba-admin-v2";
-    const state = JSON.parse(localStorage.getItem(storageKey) || "null") || defaults;
-
-    function save(){
-      localStorage.setItem(storageKey, JSON.stringify(state, null, 2));
-      render();
-    }
-
-    function addLog(text){
-      const time = new Date().toLocaleString("ru-RU");
-      state.logs.unshift(time + " - " + text);
-      state.logs = state.logs.slice(0, 8);
-    }
-
-    function renderSections(){
-      document.getElementById("sectionRows").innerHTML = state.sections.map((section, index) => `
-        <tr>
-          <td><strong><a href="/v2/#${section.name}">${section.name}</a></strong></td>
-          <td class="count">${section.topics}</td>
-          <td class="count">${section.status}</td>
-          <td class="actions">
-            <button class="mini-button" data-action="up" data-index="${index}">выше</button>
-            <button class="mini-button" data-action="toggle" data-index="${index}">${section.status === "открыт" ? "закрыть" : "открыть"}</button>
-            <button class="mini-button danger" data-action="delete" data-index="${index}">удалить</button>
-          </td>
-        </tr>
-      `).join("");
-    }
-
-    function renderTopic(){
-      document.getElementById("topicTitle").value = state.topic.title;
-      document.getElementById("topicForum").value = state.topic.forum;
-      document.getElementById("topicStatus").value = state.topic.status;
-      document.getElementById("topicAuthor").value = state.topic.author;
-      document.getElementById("topicBody").value = state.topic.body;
-      document.getElementById("topicPreview").textContent = JSON.stringify(state.topic, null, 2);
-    }
-
-    function render(){
-      renderSections();
-      renderTopic();
-      document.getElementById("topicCount").textContent = state.sections.reduce((sum, item) => sum + Number(item.topics), 0);
-      document.getElementById("modeState").textContent = state.forumMode;
-      document.getElementById("exportPreview").textContent = JSON.stringify(state, null, 2);
-      document.getElementById("logsList").innerHTML = state.logs.map(item => `<li>${item}</li>`).join("");
-    }
-
-    document.getElementById("sectionRows").addEventListener("click", (event) => {
-      const button = event.target.closest("button");
-      if (!button) return;
-
-      const index = Number(button.dataset.index);
-      const action = button.dataset.action;
-      const section = state.sections[index];
-
-      if (action === "up" && index > 0) {
-        state.sections.splice(index - 1, 0, state.sections.splice(index, 1)[0]);
-        addLog("Раздел поднят выше");
-      }
-
-      if (action === "toggle") {
-        section.status = section.status === "открыт" ? "закрыт" : "открыт";
-        addLog("Раздел «" + section.name + "» теперь " + section.status);
-      }
-
-      if (action === "delete") {
-        section.status = "скрыт";
-        addLog("Раздел «" + section.name + "» скрыт");
-      }
-
-      save();
-    });
-
-    document.getElementById("topicForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      state.topic = {
-        title: document.getElementById("topicTitle").value,
-        forum: document.getElementById("topicForum").value,
-        status: document.getElementById("topicStatus").value,
-        author: document.getElementById("topicAuthor").value,
-        body: document.getElementById("topicBody").value
-      };
-      addLog("Тема «" + state.topic.title + "» сохранена");
-      document.getElementById("saveStatus").textContent = "сохранено локально";
-      save();
-    });
-
-    document.getElementById("pinTopic").addEventListener("click", () => {
-      state.topic.status = "закреплена";
-      addLog("Тема закреплена");
-      save();
-    });
-
-    document.getElementById("hideTopic").addEventListener("click", () => {
-      state.topic.status = "скрыта";
-      addLog("Тема скрыта");
-      save();
-    });
-
-    document.getElementById("designForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      addLog("Оформление применено: " + document.getElementById("themeSelect").value);
-      save();
-    });
-
-    document.getElementById("toggleMode").addEventListener("click", () => {
-      state.forumMode = state.forumMode === "открыт" ? "закрыт" : "открыт";
-      addLog("Режим форума: " + state.forumMode);
-      save();
-    });
-
-    render();
-  </script>
+  <script type="module" src="./assets/admin.js"></script>
 </body>
 </html>
