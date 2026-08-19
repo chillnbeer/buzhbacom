@@ -65,6 +65,13 @@ function isV2ForumRoute(pathname) {
   return !/\.[^/]+$/.test(pathname);
 }
 
+function isAdminPageRoute(pathname) {
+  if (pathname === "/admin" || pathname === "/admin/") return false;
+  if (!pathname.startsWith("/admin/")) return false;
+  if (pathname.startsWith("/admin/assets/")) return false;
+  return !/\.[^/]+$/.test(pathname);
+}
+
 export async function onRequest(context) {
   const url = new URL(context.request.url);
   if (isLegacyAdminRoute(url.pathname)) {
@@ -79,6 +86,11 @@ export async function onRequest(context) {
   if (!isAdminRoute(url.pathname)) return context.next();
 
   if (await isAdminRequest(context.request, context.env)) {
+    if (isAdminPageRoute(url.pathname)) {
+      const request = new Request(new URL("/admin/", url.origin), context.request);
+      return context.next(request);
+    }
+
     return context.next();
   }
 

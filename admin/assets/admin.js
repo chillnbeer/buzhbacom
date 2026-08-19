@@ -4,6 +4,7 @@ const storageKey = "buzhba-admin-v2";
 const tokenKey = "buzhba-admin-token";
 const apiStateUrl = "/api/forum/state";
 const $ = (selector) => document.querySelector(selector);
+const adminPages = new Set(["summary", "categories", "sections", "topics", "posts", "media", "users", "trash", "design", "export", "logs"]);
 
 const translitMap = {
   а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh", з: "z", и: "i", й: "y",
@@ -128,6 +129,47 @@ function sectionUrl(section){
 function topicUrl(topic){
   const section = findForum(topic?.forumId);
   return section ? `${sectionUrl(section)}${normalizeSlug(topic?.slug || topic?.title)}/` : "/v2/";
+}
+
+function currentAdminPage(){
+  const page = location.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean)[0] || "summary";
+  return adminPages.has(page) ? page : "summary";
+}
+
+function adminPageUrl(page){
+  return page === "summary" ? "/admin/" : `/admin/${page}/`;
+}
+
+function setAdminPage(page = currentAdminPage()){
+  document.querySelectorAll("[data-admin-page]").forEach((section) => {
+    section.hidden = section.dataset.adminPage !== page;
+  });
+
+  document.querySelectorAll("[data-admin-route]").forEach((link) => {
+    link.classList.toggle("active", link.dataset.adminRoute === page);
+  });
+
+  const crumb = document.querySelector(".crumb");
+  if (crumb) {
+    const label = document.querySelector(`[data-admin-route="${page}"]`)?.textContent || "Сводка";
+    crumb.textContent = `» группа бужба » администрирование » ${label.toLowerCase()}`;
+  }
+}
+
+function bindAdminRouter(){
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a[href^='/admin/']");
+    if (!link || link.target) return;
+    const url = new URL(link.href, location.origin);
+    const page = url.pathname.replace(/^\/admin\/?/, "").split("/").filter(Boolean)[0] || "summary";
+    if (!adminPages.has(page)) return;
+    event.preventDefault();
+    history.pushState({}, "", adminPageUrl(page));
+    setAdminPage(page);
+    window.scrollTo({ top: 0, behavior: "auto" });
+  });
+
+  window.addEventListener("popstate", () => setAdminPage());
 }
 
 function options(items, selected, label){
@@ -670,6 +712,8 @@ function bindButtons(){
 }
 
 async function init(){
+  bindAdminRouter();
+  setAdminPage();
   bindForms();
   bindButtons();
   render();

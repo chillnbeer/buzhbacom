@@ -133,6 +133,10 @@ button{cursor:pointer}
 
 .category + .category{margin-top:20px}
 
+.admin-page[hidden]{
+  display:none;
+}
+
 .category-title{
   padding:6px 18px 7px;
   border-bottom:1px solid var(--border-dark);

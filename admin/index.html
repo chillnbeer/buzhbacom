@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="/images/f/favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/svg+xml" href="/images/f/favicon.svg">
   <link rel="shortcut icon" href="/images/f/favicon.ico">
-  <link rel="stylesheet" href="./assets/admin.css">
+  <link rel="stylesheet" href="/admin/assets/admin.css">
 </head>
 <body>
   <div class="page">
@@ -19,24 +19,23 @@
 
     <nav class="main-nav" aria-label="Главное меню">
       <a href="/v2/">Форум</a>
-      <a href="#users">Участники</a>
-      <a href="#search">Поиск</a>
-      <a href="#profile">Профиль</a>
-      <a href="#messages">Сообщения</a>
-      <a href="/v2/">Выход</a>
+      <a href="/admin/users/">Участники</a>
+      <a href="/admin/topics/">Темы</a>
+      <a href="/admin/posts/">Сообщения</a>
+      <a href="/api/forum/logout">Выход</a>
     </nav>
 
     <nav class="sub-nav" aria-label="Админские ссылки">
-      <a href="#categories">Категории</a>
-      <a href="#sections">Разделы</a>
-      <a href="#topics">Темы</a>
-      <a href="#posts">Сообщения</a>
-      <a href="#media">Медиа</a>
-      <a href="#design">Дизайн</a>
-      <a href="#users">Пользователи</a>
-      <a href="#trash">Корзина</a>
-      <a href="#export">Экспорт</a>
-      <a href="#logs">Логи</a>
+      <a href="/admin/categories/">Категории</a>
+      <a href="/admin/sections/">Разделы</a>
+      <a href="/admin/topics/">Темы</a>
+      <a href="/admin/posts/">Сообщения</a>
+      <a href="/admin/media/">Медиа</a>
+      <a href="/admin/design/">Дизайн</a>
+      <a href="/admin/users/">Пользователи</a>
+      <a href="/admin/trash/">Корзина</a>
+      <a href="/admin/export/">Экспорт</a>
+      <a href="/admin/logs/">Логи</a>
     </nav>
 
     <section class="hello">
@@ -52,16 +51,17 @@
         <section class="category">
           <div class="category-title">Меню администратора</div>
           <ul class="side-menu">
-            <li><a class="active" href="#summary">Сводка</a></li>
-            <li><a href="#categories">Категории</a></li>
-            <li><a href="#sections">Разделы</a></li>
-            <li><a href="#topics">Темы</a></li>
-            <li><a href="#posts">Сообщения</a></li>
-            <li><a href="#media">Картинки и видео</a></li>
-            <li><a href="#users">Пользователи</a></li>
-            <li><a href="#trash">Корзина</a></li>
-            <li><a href="#design">Настройки дизайна</a></li>
-            <li><a href="#export">Экспорт данных</a></li>
+            <li><a class="active" href="/admin/" data-admin-route="summary">Сводка</a></li>
+            <li><a href="/admin/categories/" data-admin-route="categories">Категории</a></li>
+            <li><a href="/admin/sections/" data-admin-route="sections">Разделы</a></li>
+            <li><a href="/admin/topics/" data-admin-route="topics">Темы</a></li>
+            <li><a href="/admin/posts/" data-admin-route="posts">Сообщения</a></li>
+            <li><a href="/admin/media/" data-admin-route="media">Картинки и видео</a></li>
+            <li><a href="/admin/users/" data-admin-route="users">Пользователи</a></li>
+            <li><a href="/admin/trash/" data-admin-route="trash">Корзина</a></li>
+            <li><a href="/admin/design/" data-admin-route="design">Настройки дизайна</a></li>
+            <li><a href="/admin/export/" data-admin-route="export">Экспорт данных</a></li>
+            <li><a href="/admin/logs/" data-admin-route="logs">Логи</a></li>
           </ul>
         </section>
 
@@ -73,7 +73,7 @@
       </aside>
 
       <div>
-        <section class="category" id="summary">
+        <section class="category admin-page" id="summary" data-admin-page="summary">
           <div class="category-title">Статистика</div>
           <div class="stats-grid">
             <div class="stat">Категорий<strong id="categoryCount">0</strong></div>
@@ -84,7 +84,7 @@
           </div>
         </section>
 
-        <section class="category" id="categories">
+        <section class="category admin-page" id="categories" data-admin-page="categories">
           <div class="category-title">Категории</div>
           <div class="split">
             <form class="field" id="categoryForm">
@@ -112,7 +112,7 @@
           </div>
         </section>
 
-        <section class="category" id="sections">
+        <section class="category admin-page" id="sections" data-admin-page="sections">
           <div class="category-title">Разделы</div>
           <form class="editor" id="sectionForm">
             <div class="field">
@@ -150,7 +150,7 @@
           </table>
         </section>
 
-        <section class="category" id="topics">
+        <section class="category admin-page" id="topics" data-admin-page="topics">
           <div class="category-title">Темы</div>
           <form class="editor" id="topicForm">
             <div class="field">
@@ -203,7 +203,7 @@
           </table>
         </section>
 
-        <section class="category" id="posts">
+        <section class="category admin-page" id="posts" data-admin-page="posts">
           <div class="category-title">Сообщения</div>
           <form class="editor" id="postForm">
             <div class="field">
@@ -245,7 +245,7 @@
           </table>
         </section>
 
-        <section class="category" id="media">
+        <section class="category admin-page" id="media" data-admin-page="media">
           <div class="category-title">Медиа-библиотека</div>
           <form class="editor" id="mediaForm">
             <div class="field">
@@ -286,7 +286,7 @@
           </table>
         </section>
 
-        <section class="category" id="users">
+        <section class="category admin-page" id="users" data-admin-page="users">
           <div class="category-title">Пользователи и права</div>
           <form class="editor" id="userForm">
             <div class="field">
@@ -319,7 +319,7 @@
           </table>
         </section>
 
-        <section class="category" id="trash">
+        <section class="category admin-page" id="trash" data-admin-page="trash">
           <div class="category-title">Корзина</div>
           <table>
             <thead>
@@ -333,7 +333,7 @@
           </table>
         </section>
 
-        <section class="category" id="design">
+        <section class="category admin-page" id="design" data-admin-page="design">
           <div class="category-title">Настройки дизайна</div>
           <form class="editor" id="designForm">
             <div class="field">
@@ -359,7 +359,7 @@
           </form>
         </section>
 
-        <section class="category" id="export">
+        <section class="category admin-page" id="export" data-admin-page="export">
           <div class="category-title">Cloudflare D1 / Экспорт</div>
           <p class="notice">Админка читает публичные данные из D1. Запись идет через серверную админ-сессию после входа по логину и паролю; поле токена ниже можно использовать как запасной ручной режим.</p>
           <div class="editor">
@@ -381,7 +381,7 @@
           <pre class="preview" id="exportPreview"></pre>
         </section>
 
-        <section class="category" id="logs">
+        <section class="category admin-page" id="logs" data-admin-page="logs">
           <div class="category-title">Логи администратора</div>
           <ul class="log" id="logsList"></ul>
         </section>
@@ -391,6 +391,6 @@
     <footer class="footer">Powered by старый интернет. Панель управления buzhba.com/v2.</footer>
   </div>
 
-  <script type="module" src="./assets/admin.js"></script>
+  <script type="module" src="/admin/assets/admin.js"></script>
 </body>
 </html>
