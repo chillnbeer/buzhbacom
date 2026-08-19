@@ -557,7 +557,7 @@
             <th class="last">Последнее сообщение</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="forumRows">
           <tr>
             <td class="forum-cell">
               <a class="forum-link" href="#photos"><span class="forum-icon"></span><span>фотографии</span></a>
@@ -689,9 +689,9 @@
     <section class="category">
       <div class="category-title">Статистика форума</div>
       <div class="stats-grid">
-        <div>Всего тем: <strong>9</strong></div>
-        <div>Зарегистрированных пользователей: <strong>3</strong></div>
-        <div>Всего сообщений: <strong>9</strong></div>
+        <div>Всего тем: <strong id="publicTopicCount">9</strong></div>
+        <div>Зарегистрированных пользователей: <strong id="publicUserCount">3</strong></div>
+        <div>Всего сообщений: <strong id="publicPostCount">9</strong></div>
         <div>Последним зарегистрировался: <strong>bobubip</strong></div>
       </div>
     </section>
@@ -700,5 +700,6 @@
       Powered by старый интернет. Сделано для buzhba.com/v2.
     </footer>
   </div>
+  <script type="module" src="/v2/assets/forum.js"></script>
 </body>
 </html>

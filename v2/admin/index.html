@@ -351,10 +351,21 @@
         </section>
 
         <section class="category" id="export">
-          <div class="category-title">Экспорт данных</div>
-          <p class="notice">Сейчас это локальная CMS на localStorage. JSON ниже можно будет подключить к настоящей публикации через GitHub API, GitHub Actions или Cloudflare Worker.</p>
+          <div class="category-title">Cloudflare D1 / Экспорт</div>
+          <p class="notice">Админка читает публичные данные из D1. Для записи нужен ADMIN_TOKEN из Cloudflare Pages settings.</p>
           <div class="editor">
+            <div class="field">
+              <label for="adminToken">ADMIN_TOKEN</label>
+              <input id="adminToken" type="password" autocomplete="current-password" placeholder="вставить токен из Cloudflare">
+            </div>
+            <div class="field">
+              <label>API</label>
+              <div id="apiStatus" class="muted">проверка...</div>
+            </div>
             <div class="form-actions">
+              <button class="button" type="button" id="saveToken">Сохранить токен</button>
+              <button class="button" type="button" id="loadRemote">Загрузить из D1</button>
+              <button class="button primary" type="button" id="publishRemote">Опубликовать в D1</button>
               <button class="button primary" type="button" id="downloadJson">Скачать JSON</button>
             </div>
           </div>

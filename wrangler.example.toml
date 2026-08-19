@@ -1,0 +1,11 @@
+name = "buzhbacom"
+pages_build_output_dir = "."
+compatibility_date = "2026-08-19"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "buzhba-forum"
+database_id = "PASTE_D1_DATABASE_ID_HERE"
+
+[vars]
+ADMIN_TOKEN = "CHANGE_ME_IN_CLOUDFLARE_DASHBOARD"

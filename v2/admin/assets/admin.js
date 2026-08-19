@@ -1,9 +1,12 @@
 import { DEFAULT_STATE } from "../data/default-state.js";
 
 const storageKey = "buzhba-admin-v2";
+const tokenKey = "buzhba-admin-token";
+const apiStateUrl = "/api/forum/state";
 const $ = (selector) => document.querySelector(selector);
 
 let state = migrate(loadState());
+let remoteSaveTimer = null;
 
 function loadState(){
   try {
@@ -43,6 +46,7 @@ function migrate(data){
 function save(){
   localStorage.setItem(storageKey, JSON.stringify(state, null, 2));
   render();
+  scheduleRemoteSave();
 }
 
 function makeId(prefix, text){
@@ -250,6 +254,54 @@ function renderStats(){
   $("#modeState").textContent = state.forumMode;
   $("#exportPreview").textContent = JSON.stringify(state, null, 2);
   $("#logsList").innerHTML = state.logs.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  $("#adminToken").value = localStorage.getItem(tokenKey) || "";
+}
+
+async function loadRemoteState(){
+  const status = $("#apiStatus");
+  try {
+    const response = await fetch(apiStateUrl, { cache: "no-store" });
+    const payload = await response.json();
+    if (!payload.ok) throw new Error(payload.error || "API error");
+    state = migrate(payload.state);
+    localStorage.setItem(storageKey, JSON.stringify(state, null, 2));
+    status.textContent = `D1: ${payload.source || "ok"} / данные загружены`;
+    render();
+  } catch (error) {
+    status.textContent = `API недоступен: ${error.message}`;
+  }
+}
+
+async function publishRemoteState(){
+  const status = $("#apiStatus");
+  const token = localStorage.getItem(tokenKey);
+  if (!token) {
+    status.textContent = "Нет ADMIN_TOKEN. Вставь токен и нажми «Сохранить токен».";
+    return;
+  }
+
+  try {
+    status.textContent = "Публикую в D1...";
+    const response = await fetch(apiStateUrl, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        "authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ state })
+    });
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) throw new Error(payload.error || `HTTP ${response.status}`);
+    status.textContent = `D1: сохранено ${payload.updatedAt || ""}`;
+  } catch (error) {
+    status.textContent = `D1 save failed: ${error.message}`;
+  }
+}
+
+function scheduleRemoteSave(){
+  if (!localStorage.getItem(tokenKey)) return;
+  clearTimeout(remoteSaveTimer);
+  remoteSaveTimer = setTimeout(publishRemoteState, 900);
 }
 
 function render(){
@@ -543,12 +595,21 @@ function bindButtons(){
     link.click();
     URL.revokeObjectURL(url);
   });
+
+  $("#saveToken").addEventListener("click", () => {
+    localStorage.setItem(tokenKey, $("#adminToken").value.trim());
+    $("#apiStatus").textContent = "ADMIN_TOKEN сохранен в этом браузере";
+  });
+
+  $("#loadRemote").addEventListener("click", loadRemoteState);
+  $("#publishRemote").addEventListener("click", publishRemoteState);
 }
 
-function init(){
+async function init(){
   bindForms();
   bindButtons();
-  save();
+  render();
+  await loadRemoteState();
 }
 
 init();
